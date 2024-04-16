@@ -1,9 +1,6 @@
 package com.lijn.notificationfilter.front.fragment;
 
-import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +10,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import com.lijn.notificationfilter.R;
 import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.Type;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,13 +20,12 @@ import java.lang.reflect.Type;
  */
 public class Profile extends Fragment
 {
-    Button ruleButton;
-    Button globalButton;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    Button ruleButton;
+    Button globalButton;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -93,7 +86,7 @@ public class Profile extends Fragment
             turnRuleProfile();
         });
 
-        globalButton.setOnClickListener((v) ->{
+        globalButton.setOnClickListener((v) -> {
             turnGlobalProfile();
         });
 

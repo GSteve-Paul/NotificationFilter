@@ -1,4 +1,4 @@
-package com.lijn.notificationfilter.back.cache.adt;
+package com.lijn.notificationfilter.back.entity.cache.adt;
 
 import com.lijn.notificationfilter.back.entity.Program;
 
@@ -22,27 +22,33 @@ public class DoublyLinkedListNode
         this.next = next;
     }
 
-    public Program getProgram() {
+    public Program getProgram()
+    {
         return program;
     }
 
-    public void setProgram(Program program) {
+    public void setProgram(Program program)
+    {
         this.program = program;
     }
 
-    public DoublyLinkedListNode getLast() {
+    public DoublyLinkedListNode getLast()
+    {
         return last;
     }
 
-    public void setLast(DoublyLinkedListNode last) {
+    public void setLast(DoublyLinkedListNode last)
+    {
         this.last = last;
     }
 
-    public DoublyLinkedListNode getNext() {
+    public DoublyLinkedListNode getNext()
+    {
         return next;
     }
 
-    public void setNext(DoublyLinkedListNode next) {
+    public void setNext(DoublyLinkedListNode next)
+    {
         this.next = next;
     }
 }

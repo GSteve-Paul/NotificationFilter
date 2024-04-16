@@ -1,4 +1,4 @@
-package com.lijn.notificationfilter.back.cache.adt;
+package com.lijn.notificationfilter.back.entity.cache.adt;
 
 import com.lijn.notificationfilter.back.entity.Program;
 
@@ -52,7 +52,7 @@ public class DoublyLinkedList
 
     public void pushBack(DoublyLinkedListNode node)
     {
-        if(this.empty())
+        if (this.empty())
         {
             begin = end = node;
             return;
@@ -72,7 +72,7 @@ public class DoublyLinkedList
 
     public void popFront()
     {
-        if(this.empty())
+        if (this.empty())
         {
             throw new RuntimeException("do popFront to an empty DoublyLinkedList");
         }

@@ -33,5 +33,6 @@ public class MainActivity extends AppCompatActivity
 
         Intent intent = new Intent(this, NotificationListener.class);
         startService(intent);
+
     }
 }

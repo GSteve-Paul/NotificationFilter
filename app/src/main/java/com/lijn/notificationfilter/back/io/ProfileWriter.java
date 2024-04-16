@@ -1,4 +1,4 @@
-package com.lijn.notificationfilter.back.fileoperator;
+package com.lijn.notificationfilter.back.io;
 
 import android.content.Context;
 import com.google.gson.Gson;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ProfileWriter
 {
-    private volatile static ProfileWriter mInstance;
+    private volatile static ProfileWriter mInstance = null;
 
     private ProfileWriter() {}
 
@@ -30,19 +30,18 @@ public class ProfileWriter
         return mInstance;
     }
 
-    private OutputStreamWriter writeProfile() throws FileNotFoundException
+    private OutputStreamWriter getWriter() throws FileNotFoundException
     {
         Context context = ResourceHolder.getContext();
-        FileOutputStream fileOutputStream =
-                context.openFileOutput(
-                        "profile.json", Context.MODE_PRIVATE);
+        FileOutputStream fileOutputStream = context.openFileOutput
+                ("profile.json", Context.MODE_PRIVATE);
         return new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
     }
 
-    public void writeAllFilterData(List<FilterData> filterDataList) throws IOException
+    public void writeFilterData(List<FilterData> filterDataList) throws IOException
     {
         Gson gson = new Gson();
-        Writer writer = writeProfile();
+        Writer writer = getWriter();
         String jsonString = gson.toJson(filterDataList);
         writer.write(jsonString);
         writer.flush();

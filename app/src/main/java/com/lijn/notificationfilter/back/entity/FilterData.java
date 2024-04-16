@@ -1,9 +1,8 @@
 package com.lijn.notificationfilter.back.entity;
 
-import com.lijn.notificationfilter.back.inservice.InServiceType;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class FilterData
 {
@@ -35,7 +34,8 @@ public class FilterData
         return enabledType;
     }
 
-    public void setEnabledType(InServiceType enabledType) {
+    public void setEnabledType(InServiceType enabledType)
+    {
         this.enabledType = enabledType;
     }
 
@@ -44,7 +44,8 @@ public class FilterData
         return whiteList;
     }
 
-    public void setWhiteList(List<String> whiteList) {
+    public void setWhiteList(List<String> whiteList)
+    {
         this.whiteList = whiteList;
     }
 
@@ -53,7 +54,8 @@ public class FilterData
         return blackList;
     }
 
-    public void setBlackList(List<String> blackList) {
+    public void setBlackList(List<String> blackList)
+    {
         this.blackList = blackList;
     }
 

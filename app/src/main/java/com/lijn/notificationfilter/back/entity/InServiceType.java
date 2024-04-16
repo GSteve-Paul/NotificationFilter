@@ -1,4 +1,4 @@
-package com.lijn.notificationfilter.back.inservice;
+package com.lijn.notificationfilter.back.entity;
 
 public enum InServiceType
 {

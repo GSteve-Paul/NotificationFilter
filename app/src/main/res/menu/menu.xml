@@ -7,9 +7,9 @@
 
     <item android:id="@+id/history_fragment"
           android:icon="@android:drawable/btn_star_big_on"
-          android:title="日志" />
+          android:title="日志"/>
 
     <item android:id="@+id/profile_fragment"
           android:icon="?android:attr/actionModeFindDrawable"
-          android:title="配置" />
+          android:title="配置"/>
 </menu>

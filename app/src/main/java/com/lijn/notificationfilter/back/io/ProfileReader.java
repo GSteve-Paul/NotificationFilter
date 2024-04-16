@@ -1,4 +1,4 @@
-package com.lijn.notificationfilter.back.fileoperator;
+package com.lijn.notificationfilter.back.io;
 
 import android.content.Context;
 import com.google.gson.Gson;
@@ -13,16 +13,17 @@ import java.util.List;
 
 public class ProfileReader
 {
-    private volatile static ProfileReader mInstance;
-    private ProfileReader(){}
+    private volatile static ProfileReader mInstance = null;
+
+    private ProfileReader() {}
 
     public static ProfileReader getInstance()
     {
-        if(mInstance == null)
+        if (mInstance == null)
         {
             synchronized (ProfileReader.class)
             {
-                if(mInstance == null)
+                if (mInstance == null)
                 {
                     mInstance = new ProfileReader();
                 }
@@ -31,7 +32,7 @@ public class ProfileReader
         return mInstance;
     }
 
-    private Reader readProfile() throws IOException
+    private Reader getReader() throws IOException
     {
         Context context = ResourceHolder.getContext();
         InputStreamReader inputStreamReader = null;
@@ -46,12 +47,12 @@ public class ProfileReader
         catch (IOException ioException)
         {
             File file = context.getFileStreamPath("profile.json");
-            if(!file.exists())
+            if (!file.exists())
             {
                 List<FilterData> filterDataList = new ArrayList<>();
-                if(file.createNewFile())
+                if (file.createNewFile())
                 {
-                    ProfileWriter.getInstance().writeAllFilterData(filterDataList);
+                    ProfileWriter.getInstance().writeFilterData(filterDataList);
                 }
                 else
                 {
@@ -66,18 +67,18 @@ public class ProfileReader
         }
     }
 
-    public List<FilterData> ReadFilterDataForAllProgram() throws IOException
+    public List<FilterData> ReadFilterData() throws IOException
     {
         Gson gson = new Gson();
-        Reader reader = readProfile();
+        Reader reader = getReader();
         List<FilterData> filterDataList = gson.fromJson(reader, List.class);
         reader.close();
         return filterDataList;
     }
 
-    public FilterData ReadFilterDataForOneProgram(Program program) throws IOException
+    public FilterData ReadFilterData(Program program) throws IOException
     {
-        List<FilterData> filterDataList = ReadFilterDataForAllProgram();
+        List<FilterData> filterDataList = ReadFilterData();
         for (FilterData data : filterDataList)
         {
             Program thisProgram = data.getProgram();

@@ -1,17 +1,16 @@
-package com.lijn.notificationfilter.back.cache;
+package com.lijn.notificationfilter.back.entity.cache;
 
-import com.lijn.notificationfilter.back.cache.adt.DoublyLinkedList;
-import com.lijn.notificationfilter.back.cache.adt.DoublyLinkedListNode;
+import com.lijn.notificationfilter.back.entity.cache.adt.DoublyLinkedList;
+import com.lijn.notificationfilter.back.entity.cache.adt.DoublyLinkedListNode;
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.entity.Program;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LRUCache
 {
-    final Integer capacity = 20;
+    final Integer capacity = 50;
     DoublyLinkedList linkedList;
     Map<Program, DoublyLinkedListNode> programToNodeMapper;
     Map<Program, FilterData> programToDataMapper;
