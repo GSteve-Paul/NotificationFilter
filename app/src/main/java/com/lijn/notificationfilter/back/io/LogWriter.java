@@ -42,11 +42,8 @@ public class LogWriter
         Path path = Paths.get(file.getAbsolutePath());
         path.resolve("log");
 
-        LocalDate date = LocalDate.now();
-        String year = Integer.toString(date.getYear());
-        String month = Integer.toString(date.getMonthValue());
-        String day = Integer.toString(date.getDayOfMonth());
-        path = path.resolve(year + "_" + month + "_" + day + ".log");
+        String logFileName = ResourceHolder.getLogFileName();
+        path = path.resolve(logFileName);
 
         file = path.toFile();
         FileWriter fw = new FileWriter(file);

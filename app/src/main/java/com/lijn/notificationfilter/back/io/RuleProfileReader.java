@@ -11,25 +11,47 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileReader
+public class RuleProfileReader
 {
-    private volatile static ProfileReader mInstance = null;
+    private volatile static RuleProfileReader mInstance = null;
 
-    private ProfileReader() {}
+    private RuleProfileReader() {}
 
-    public static ProfileReader getInstance()
+    public static RuleProfileReader getInstance()
     {
         if (mInstance == null)
         {
-            synchronized (ProfileReader.class)
+            synchronized (RuleProfileReader.class)
             {
                 if (mInstance == null)
                 {
-                    mInstance = new ProfileReader();
+                    mInstance = new RuleProfileReader();
                 }
             }
         }
         return mInstance;
+    }
+
+    private void initializeFile() throws IOException
+    {
+        Context context = ResourceHolder.getContext();
+        File file = context.getFileStreamPath("rule_profile.json");
+        if (!file.exists())
+        {
+            List<FilterData> filterDataList = new ArrayList<>();
+            if (file.createNewFile())
+            {
+                RuleProfileWriter.getInstance().writeFilterData(filterDataList);
+            }
+            else
+            {
+                throw new IOException("unable to create profile file");
+            }
+        }
+        else
+        {
+            throw new IOException("unable to read profile file");
+        }
     }
 
     private Reader getReader() throws IOException
@@ -39,30 +61,18 @@ public class ProfileReader
         try
         {
             FileInputStream fileInputStream =
-                    context.openFileInput("profile.json");
+                    context.openFileInput("rule_profile.json");
             inputStreamReader = new InputStreamReader(fileInputStream
                     , StandardCharsets.UTF_8);
             return inputStreamReader;
         }
         catch (IOException ioException)
         {
-            File file = context.getFileStreamPath("profile.json");
-            if (!file.exists())
-            {
-                List<FilterData> filterDataList = new ArrayList<>();
-                if (file.createNewFile())
-                {
-                    ProfileWriter.getInstance().writeFilterData(filterDataList);
-                }
-                else
-                {
-                    throw new IOException("unable to create profile file");
-                }
-            }
-            else
-            {
-                throw new IOException("unable to read profile file");
-            }
+            this.initializeFile();
+            FileInputStream fileInputStream =
+                    context.openFileInput("rule_profile.json");
+            inputStreamReader = new InputStreamReader(fileInputStream
+                    , StandardCharsets.UTF_8);
             return inputStreamReader;
         }
     }

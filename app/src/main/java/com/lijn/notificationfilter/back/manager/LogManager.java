@@ -11,11 +11,8 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 public class LogManager
 {
     private final static Integer cacheSize = 1000;
-
     private final static Integer bufferSize = 500;
-
     private volatile static LogManager mInstance;
-
     private List<MyLog> logBuffer;
 
     private ConcurrentLinkedDeque<MyLog> logCache;
@@ -50,6 +47,11 @@ public class LogManager
 
     public void writeLog(MyLog log) throws IOException
     {
+        if(!ProgramSettingManager.getInstance().getProgramSetting()
+                .getLogNotificationVariety(log.getNotificationType()))
+        {
+            return;
+        }
         logCache.add(log);
         if (logCache.size() > cacheSize)
         {

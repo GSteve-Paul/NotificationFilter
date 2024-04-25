@@ -9,21 +9,21 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class ProfileWriter
+public class RuleProfileWriter
 {
-    private volatile static ProfileWriter mInstance = null;
+    private volatile static RuleProfileWriter mInstance = null;
 
-    private ProfileWriter() {}
+    private RuleProfileWriter() {}
 
-    public static ProfileWriter getInstance()
+    public static RuleProfileWriter getInstance()
     {
         if (mInstance == null)
         {
-            synchronized (ProfileWriter.class)
+            synchronized (RuleProfileWriter.class)
             {
                 if (mInstance == null)
                 {
-                    mInstance = new ProfileWriter();
+                    mInstance = new RuleProfileWriter();
                 }
             }
         }
@@ -34,7 +34,7 @@ public class ProfileWriter
     {
         Context context = ResourceHolder.getContext();
         FileOutputStream fileOutputStream = context.openFileOutput
-                ("profile.json", Context.MODE_PRIVATE);
+                ("rule_profile.json", Context.MODE_PRIVATE);
         return new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
     }
 

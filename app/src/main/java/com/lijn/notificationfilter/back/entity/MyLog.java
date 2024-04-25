@@ -1,18 +1,18 @@
 package com.lijn.notificationfilter.back.entity;
 
 import android.app.Notification;
+import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
 
 import java.time.LocalTime;
 
 public class MyLog
 {
-    InServiceType inServiceType;
+    private NotificationType notificationType;
     private String logText;
 
-    public MyLog(Notification notification, InServiceType inServiceType)
+    public MyLog(Notification notification,
+                 NotificationType notificationType)
     {
-        this.inServiceType = inServiceType;
-
         String txt = notification.extras.getString(Notification.EXTRA_TEXT);
         txt.replaceAll("\r\n", "");
         txt.replaceAll("\n", "");
@@ -29,6 +29,8 @@ public class MyLog
     }
 
     public String getLogText() {return this.logText;}
+
+    public NotificationType getNotificationType() {return this.notificationType;}
 
     @Override
     public String toString()

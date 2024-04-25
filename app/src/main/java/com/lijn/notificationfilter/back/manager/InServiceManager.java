@@ -1,12 +1,11 @@
 package com.lijn.notificationfilter.back.manager;
 
 import android.app.Notification;
-import com.lijn.notificationfilter.back.entity.cache.LRUCache;
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.entity.InServiceType;
 import com.lijn.notificationfilter.back.entity.Program;
-import com.lijn.notificationfilter.back.io.ProfileReader;
-import com.lijn.notificationfilter.back.io.ProfileWriter;
+import com.lijn.notificationfilter.back.entity.cache.LRUCache;
+import com.lijn.notificationfilter.back.io.RuleProfileReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class InServiceManager
         InServiceType inServiceType = packageInService.get(program);
         if (inServiceType == null)
         {
-            FilterData data = ProfileManager.getInstance().readProfile(program);
+            FilterData data = RuleProfileManager.getInstance().readProfile(program);
             if (data != null)
             {
                 packageInService.put(program, data.getEnabledType());
@@ -60,7 +59,6 @@ public class InServiceManager
 
     public boolean doFilter(Program program, Notification notification)
     {
-
         InServiceType type = isInService(program);
         if (type == null || type == InServiceType.NOT_USE)
         {
@@ -71,8 +69,7 @@ public class InServiceManager
         {
             try
             {
-                data = ProfileReader.getInstance()
-                        .ReadFilterData(program);
+                data = RuleProfileReader.getInstance().ReadFilterData(program);
                 cache.setFilterDataIntoCache(data);
             }
             catch (IOException ioException)
