@@ -34,7 +34,7 @@ public class RuleProfileWriter
     {
         Context context = ResourceHolder.getContext();
         FileOutputStream fileOutputStream = context.openFileOutput
-                ("rule_profile.json", Context.MODE_PRIVATE);
+                (ResourceHolder.RuleProfileFileName, Context.MODE_PRIVATE);
         return new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
     }
 

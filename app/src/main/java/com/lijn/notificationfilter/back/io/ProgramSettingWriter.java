@@ -34,7 +34,7 @@ public class ProgramSettingWriter
     {
         Context context = ResourceHolder.getContext();
         FileOutputStream fileOutputStream = context.openFileOutput
-                ("program_info.json", Context.MODE_PRIVATE);
+                (ResourceHolder.ProgramProfileFileName, Context.MODE_PRIVATE);
         return new OutputStreamWriter(fileOutputStream);
     }
 

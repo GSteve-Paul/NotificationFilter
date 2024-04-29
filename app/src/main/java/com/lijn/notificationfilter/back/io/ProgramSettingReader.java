@@ -32,7 +32,7 @@ public class ProgramSettingReader
     private void initializeProgramInfoFile() throws IOException
     {
         Context context = ResourceHolder.getContext();
-        File file = context.getFileStreamPath("program_info.json");
+        File file = context.getFileStreamPath(ResourceHolder.ProgramProfileFileName);
         if (!file.exists())
         {
             ProgramSetting programSetting = new ProgramSetting();
@@ -59,7 +59,7 @@ public class ProgramSettingReader
         try
         {
             FileInputStream fileInputStream =
-                    context.openFileInput("program_info.json");
+                    context.openFileInput(ResourceHolder.ProgramProfileFileName);
             inputStreamReader = new InputStreamReader(fileInputStream);
             return inputStreamReader;
         }
@@ -67,7 +67,7 @@ public class ProgramSettingReader
         {
             this.initializeProgramInfoFile();
             FileInputStream fileInputStream =
-                    context.openFileInput("profile.json");
+                    context.openFileInput(ResourceHolder.ProgramProfileFileName);
             inputStreamReader = new InputStreamReader(fileInputStream
                     , StandardCharsets.UTF_8);
             return inputStreamReader;

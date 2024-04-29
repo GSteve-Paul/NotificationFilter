@@ -12,6 +12,8 @@ public class ResourceHolder
 
     public static final String GlobalProfileFileName = "global_profile.json";
 
+    public static final String ProgramProfileFileName = "program_profile.json";
+
     public static String getLogFileName()
     {
         LocalDate date = LocalDate.now();

@@ -35,7 +35,7 @@ public class RuleProfileReader
     private void initializeFile() throws IOException
     {
         Context context = ResourceHolder.getContext();
-        File file = context.getFileStreamPath("rule_profile.json");
+        File file = context.getFileStreamPath(ResourceHolder.RuleProfileFileName);
         if (!file.exists())
         {
             List<FilterData> filterDataList = new ArrayList<>();
@@ -61,7 +61,7 @@ public class RuleProfileReader
         try
         {
             FileInputStream fileInputStream =
-                    context.openFileInput("rule_profile.json");
+                    context.openFileInput(ResourceHolder.RuleProfileFileName);
             inputStreamReader = new InputStreamReader(fileInputStream
                     , StandardCharsets.UTF_8);
             return inputStreamReader;
@@ -70,7 +70,7 @@ public class RuleProfileReader
         {
             this.initializeFile();
             FileInputStream fileInputStream =
-                    context.openFileInput("rule_profile.json");
+                    context.openFileInput(ResourceHolder.RuleProfileFileName);
             inputStreamReader = new InputStreamReader(fileInputStream
                     , StandardCharsets.UTF_8);
             return inputStreamReader;
