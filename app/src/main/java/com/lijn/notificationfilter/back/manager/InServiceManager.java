@@ -5,23 +5,20 @@ import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.entity.InServiceType;
 import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.entity.cache.LRUCache;
-import com.lijn.notificationfilter.back.io.RuleProfileReader;
+import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class InServiceManager
 {
     private static volatile InServiceManager mInstance = null;
-    private Map<Program, InServiceType> packageInService;
     private LRUCache cache;
+    private FilterData globalFilterData;
 
     private InServiceManager()
     {
-        packageInService = new HashMap<>();
+        globalFilterData = null;
         cache = new LRUCache();
     }
 
@@ -40,42 +37,24 @@ public class InServiceManager
         return mInstance;
     }
 
-    private InServiceType isInService(Program program)
+    private static boolean isInList(List<String> list, String text)
     {
-        InServiceType inServiceType = packageInService.get(program);
-        if (inServiceType == null)
+        for (String str : list)
         {
-            FilterData data = RuleProfileManager.getInstance().readProfile(program);
-            if (data != null)
+            if (str.matches(text))
             {
-                packageInService.put(program, data.getEnabledType());
-                return data.getEnabledType();
+                return true;
             }
-            packageInService.put(program, InServiceType.NOT_USE);
-            return InServiceType.NOT_USE;
         }
-        return inServiceType;
+        return false;
     }
 
-    public boolean doFilter(Program program, Notification notification)
+    private boolean check(Notification notification, FilterData data)
     {
-        InServiceType type = isInService(program);
-        if (type == null || type == InServiceType.NOT_USE)
+        InServiceType type = data.getEnabledType();
+        if (type == InServiceType.NOT_USE)
         {
             return true;
-        }
-        FilterData data = cache.getFilterDataFromCache(program);
-        if (data == null)
-        {
-            try
-            {
-                data = RuleProfileReader.getInstance().ReadFilterData(program);
-                cache.setFilterDataIntoCache(data);
-            }
-            catch (IOException ioException)
-            {
-                throw new RuntimeException("fail to read profile data");
-            }
         }
 
         List<String> text = new ArrayList<>();
@@ -88,41 +67,78 @@ public class InServiceManager
 
         if (type == InServiceType.USE_BLACKLIST)
         {
-            boolean ban = false;
-            for (String temp : text)
+            for (String s : text)
             {
-                if (isInList(data.getBlackList(), temp))
+                if (isInList(data.getBlackList(), s))
                 {
-                    ban = true;
-                    break;
+                    return false;
                 }
             }
-            return !ban;
+            return true;
         }
-        else
+
+        if (type == InServiceType.USE_WHITELIST)
         {
-            boolean pass = false;
-            for (String temp : text)
+            for (String s : text)
             {
-                if (isInList(data.getWhiteList(), temp))
+                if (isInList(data.getWhiteList(), s))
                 {
-                    pass = true;
-                    break;
+                    return true;
                 }
             }
-            return pass;
+            return false;
         }
+        return true;
     }
 
-    private boolean isInList(List<String> list, String text)
+    private boolean doGlobalFilter(Notification notification)
     {
-        for (String str : list)
+        FilterData data = globalFilterData;
+        if (data == null)
         {
-            if (str.matches(text))
-            {
-                return true;
-            }
+            globalFilterData = GlobalProfileManager.getInstance().read();
+            data = globalFilterData;
         }
-        return false;
+        return check(notification, data);
+    }
+
+    private boolean doRuleFilter(Program program, Notification notification)
+    {
+        FilterData data = cache.getFilterDataFromCache(program);
+        if (data == null)
+        {
+            data = RuleProfileManager.getInstance().readProfile(program);
+            cache.setFilterDataIntoCache(data);
+        }
+        return check(notification, data);
+    }
+
+    public boolean doFilter(Program program, Notification notification)
+    {
+        boolean globalResult = true;
+        if(ProgramSettingManager.getInstance().getProgramSetting()
+                .getFilterVariety(FilterType.GLOBAL))
+        {
+            globalResult = doGlobalFilter(notification);
+        }
+
+        boolean ruleResult = true;
+        if(ProgramSettingManager.getInstance().getProgramSetting()
+                .getFilterVariety(FilterType.RULE))
+        {
+            ruleResult = doRuleFilter(program, notification);
+        }
+
+        return globalResult && ruleResult;
+    }
+
+    public void clearRuleCache()
+    {
+        cache = new LRUCache();
+    }
+
+    public void clearGlobalCache()
+    {
+        globalFilterData = null;
     }
 }

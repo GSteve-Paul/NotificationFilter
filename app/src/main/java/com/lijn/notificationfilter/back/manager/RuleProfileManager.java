@@ -1,6 +1,7 @@
 package com.lijn.notificationfilter.back.manager;
 
 import com.lijn.notificationfilter.back.entity.FilterData;
+import com.lijn.notificationfilter.back.entity.InServiceType;
 import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.io.RuleProfileReader;
 import com.lijn.notificationfilter.back.io.RuleProfileWriter;
@@ -54,7 +55,9 @@ public class RuleProfileManager
                 return filterData;
             }
         }
-        return null;
+        FilterData filterData = new FilterData();
+        filterData.setEnabledType(InServiceType.NOT_USE);
+        return filterData;
     }
 
     public void saveProfile(List<FilterData> filterDataList)
@@ -62,7 +65,7 @@ public class RuleProfileManager
         try
         {
             RuleProfileWriter.getInstance().writeFilterData(filterDataList);
-            InServiceManager.getInstance();
+            InServiceManager.getInstance().clearRuleCache();
         }
         catch (IOException ioException)
         {
