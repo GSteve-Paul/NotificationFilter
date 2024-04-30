@@ -6,11 +6,12 @@ import com.lijn.notificationfilter.back.entity.InServiceType;
 import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.entity.cache.LRUCache;
 import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
+import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InServiceManager
+public class InServiceManager implements IDoFilter
 {
     private static volatile InServiceManager mInstance = null;
     private LRUCache cache;
@@ -49,12 +50,12 @@ public class InServiceManager
         return false;
     }
 
-    private boolean check(Notification notification, FilterData data)
+    private NotificationType check(Notification notification, FilterData data)
     {
         InServiceType type = data.getEnabledType();
         if (type == InServiceType.NOT_USE)
         {
-            return true;
+            return NotificationType.UNCHECKED;
         }
 
         List<String> text = new ArrayList<>();
@@ -71,10 +72,10 @@ public class InServiceManager
             {
                 if (isInList(data.getBlackList(), s))
                 {
-                    return false;
+                    return NotificationType.INTERCEPTED;
                 }
             }
-            return true;
+            return NotificationType.PASSED;
         }
 
         if (type == InServiceType.USE_WHITELIST)
@@ -83,15 +84,15 @@ public class InServiceManager
             {
                 if (isInList(data.getWhiteList(), s))
                 {
-                    return true;
+                    return NotificationType.PASSED;
                 }
             }
-            return false;
+            return NotificationType.INTERCEPTED;
         }
-        return true;
+        return NotificationType.PASSED;
     }
 
-    private boolean doGlobalFilter(Notification notification)
+    private NotificationType doGlobalFilter(Notification notification)
     {
         FilterData data = globalFilterData;
         if (data == null)
@@ -102,7 +103,7 @@ public class InServiceManager
         return check(notification, data);
     }
 
-    private boolean doRuleFilter(Program program, Notification notification)
+    private NotificationType doRuleFilter(Program program, Notification notification)
     {
         FilterData data = cache.getFilterDataFromCache(program);
         if (data == null)
@@ -113,23 +114,51 @@ public class InServiceManager
         return check(notification, data);
     }
 
-    public boolean doFilter(Program program, Notification notification)
+    @Override
+    public NotificationType doFilter(Program program, Notification notification)
     {
-        boolean globalResult = true;
-        if(ProgramSettingManager.getInstance().getProgramSetting()
+        //if both global and rule filter is enabled
+        if (ProgramSettingManager.getInstance().getProgramSetting()
+                .getFilterVariety(FilterType.GLOBAL) &&
+                ProgramSettingManager.getInstance().getProgramSetting()
+                        .getFilterVariety(FilterType.RULE))
+        {
+            NotificationType globalType = doGlobalFilter(notification);
+            NotificationType ruleType = doRuleFilter(program, notification);
+
+            if (globalType == NotificationType.INTERCEPTED ||
+                    ruleType == NotificationType.INTERCEPTED)
+            {
+                return NotificationType.INTERCEPTED;
+            }
+
+            if (globalType == NotificationType.PASSED ||
+                    ruleType == NotificationType.PASSED)
+            {
+                return NotificationType.PASSED;
+            }
+
+            return NotificationType.UNCHECKED;
+        }
+
+        //if only global filter is enabled
+        NotificationType globalResult = NotificationType.PASSED;
+        if (ProgramSettingManager.getInstance().getProgramSetting()
                 .getFilterVariety(FilterType.GLOBAL))
         {
-            globalResult = doGlobalFilter(notification);
+            return doGlobalFilter(notification);
         }
 
-        boolean ruleResult = true;
-        if(ProgramSettingManager.getInstance().getProgramSetting()
+        //if only rule filter is enabled
+        NotificationType ruleResult = NotificationType.PASSED;
+        if (ProgramSettingManager.getInstance().getProgramSetting()
                 .getFilterVariety(FilterType.RULE))
         {
-            ruleResult = doRuleFilter(program, notification);
+            return doRuleFilter(program, notification);
         }
 
-        return globalResult && ruleResult;
+        //if not any filter is enabled
+        return NotificationType.UNCHECKED;
     }
 
     public void clearRuleCache()
