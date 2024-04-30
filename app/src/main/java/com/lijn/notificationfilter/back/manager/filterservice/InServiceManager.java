@@ -120,6 +120,12 @@ public class InServiceManager implements IDoFilter
     @Override
     public NotificationType doFilter(Program program, Notification notification)
     {
+        //if filter module is not enabled
+        if (!ProgramSettingManager.getInstance().getProgramSetting()
+                .getRunning())
+        {
+            return NotificationType.UNCHECKED;
+        }
         //if both global and rule filter is enabled
         if (ProgramSettingManager.getInstance().getProgramSetting()
                 .getFilterVariety(FilterType.GLOBAL) &&
