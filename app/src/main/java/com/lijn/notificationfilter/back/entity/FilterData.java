@@ -7,12 +7,14 @@ import java.util.List;
 public class FilterData
 {
     Program program;
+    Boolean needDisplay;
     InServiceType enabledType;
     List<String> whiteList;
     List<String> blackList;
 
     public FilterData()
     {
+        needDisplay = false;
         whiteList = new ArrayList<>();
         blackList = new ArrayList<>();
         enabledType = InServiceType.NOT_USE;
@@ -59,14 +61,13 @@ public class FilterData
         this.blackList = blackList;
     }
 
-    @Override
-    public String toString()
+    public Boolean getNeedDisplay()
     {
-        return "FilterData{" +
-                "program=" + program +
-                ", enabledType=" + enabledType +
-                ", whiteList=" + whiteList +
-                ", blackList=" + blackList +
-                '}';
+        return needDisplay;
+    }
+
+    public void setNeedDisplay(Boolean needDisplay)
+    {
+        this.needDisplay = needDisplay;
     }
 }

@@ -1,13 +1,14 @@
-package com.lijn.notificationfilter.back.io;
+package com.lijn.notificationfilter.back.io.profileio;
 
 import android.content.Context;
 import com.google.gson.Gson;
 import com.lijn.notificationfilter.back.entity.FilterData;
+import com.lijn.notificationfilter.back.io.DataWriter;
 import com.lijn.notificationfilter.global.ResourceHolder;
 
 import java.io.*;
 
-public class GlobalProfileWriter
+public class GlobalProfileWriter extends DataWriter<FilterData>
 {
     private static volatile GlobalProfileWriter mInstance = null;
 
@@ -28,14 +29,24 @@ public class GlobalProfileWriter
         return mInstance;
     }
 
-    private OutputStreamWriter getWriter() throws FileNotFoundException
+    @Override
+    public Writer getWriter()
     {
-        Context context = ResourceHolder.getContext();
-        FileOutputStream fileOutputStream = context.openFileOutput
-                (ResourceHolder.GlobalProfileFileName, Context.MODE_PRIVATE);
-        return new OutputStreamWriter(fileOutputStream);
+        try
+        {
+            Context context = ResourceHolder.getContext();
+            FileOutputStream fileOutputStream = context.openFileOutput
+                    (ResourceHolder.GlobalProfileFileName, Context.MODE_PRIVATE);
+            return new OutputStreamWriter(fileOutputStream);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
+    @Override
     public void write(FilterData data) throws IOException
     {
         Gson gson = new Gson();

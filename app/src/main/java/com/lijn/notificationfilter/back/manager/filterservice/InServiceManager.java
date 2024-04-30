@@ -1,4 +1,4 @@
-package com.lijn.notificationfilter.back.manager;
+package com.lijn.notificationfilter.back.manager.filterservice;
 
 import android.app.Notification;
 import com.lijn.notificationfilter.back.entity.FilterData;
@@ -7,6 +7,9 @@ import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.entity.cache.LRUCache;
 import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
+import com.lijn.notificationfilter.back.manager.profileservice.GlobalProfileManager;
+import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
+import com.lijn.notificationfilter.back.manager.profileservice.RuleProfileManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +111,7 @@ public class InServiceManager implements IDoFilter
         FilterData data = cache.getFilterDataFromCache(program);
         if (data == null)
         {
-            data = RuleProfileManager.getInstance().readProfile(program);
+            data = RuleProfileManager.getInstance().read(program);
             cache.setFilterDataIntoCache(data);
         }
         return check(notification, data);

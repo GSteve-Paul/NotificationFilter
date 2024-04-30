@@ -1,19 +1,16 @@
-package com.lijn.notificationfilter.back.io;
+package com.lijn.notificationfilter.back.io.logio;
 
 import android.content.Context;
 import com.lijn.notificationfilter.back.entity.MyLog;
+import com.lijn.notificationfilter.back.io.DataWriter;
 import com.lijn.notificationfilter.global.ResourceHolder;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.List;
 
-public class LogWriter
+public class LogWriter extends DataWriter<List<MyLog>>
 {
     private volatile static LogWriter mInstance = null;
 
@@ -34,7 +31,8 @@ public class LogWriter
         return mInstance;
     }
 
-    private FileWriter getWriter() throws IOException
+    @Override
+    protected FileWriter getWriter()
     {
         Context context = ResourceHolder.getContext();
         File file = context.getFilesDir();
@@ -46,15 +44,24 @@ public class LogWriter
         path = path.resolve(logFileName);
 
         file = path.toFile();
-        FileWriter fw = new FileWriter(file);
-        return fw;
+        try
+        {
+            FileWriter fw = new FileWriter(file);
+            return fw;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void writeLogs(List<MyLog> myLogList) throws IOException
+    @Override
+    public void write(List<MyLog> logs) throws IOException
     {
         FileWriter fw = this.getWriter();
         BufferedWriter bw = new BufferedWriter(fw);
-        for (MyLog log : myLogList)
+        for (MyLog log : logs)
         {
             bw.write(log.toString());
         }

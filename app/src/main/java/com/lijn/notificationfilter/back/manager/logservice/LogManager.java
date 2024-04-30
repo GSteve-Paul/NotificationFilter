@@ -1,14 +1,15 @@
-package com.lijn.notificationfilter.back.manager;
+package com.lijn.notificationfilter.back.manager.logservice;
 
 import com.lijn.notificationfilter.back.entity.MyLog;
-import com.lijn.notificationfilter.back.io.LogWriter;
+import com.lijn.notificationfilter.back.io.logio.LogWriter;
+import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class LogManager
+public final class LogManager implements ILogManager
 {
     private final static Integer cacheSize = 1000;
     private final static Integer bufferSize = 500;
@@ -38,13 +39,15 @@ public class LogManager
         return mInstance;
     }
 
+    @Override
     public void flush() throws IOException
     {
         LogWriter logWriter = LogWriter.getInstance();
-        logWriter.writeLogs(logBuffer);
+        logWriter.write(logBuffer);
         logBuffer.clear();
     }
 
+    @Override
     public void writeLog(MyLog log) throws IOException
     {
         if(!ProgramSettingManager.getInstance().getProgramSetting()
@@ -65,6 +68,7 @@ public class LogManager
         }
     }
 
+    @Override
     public ConcurrentLinkedDeque<MyLog> getLogCache()
     {
         return logCache;

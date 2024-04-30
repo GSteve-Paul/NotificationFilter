@@ -1,9 +1,9 @@
-package com.lijn.notificationfilter.back.manager;
+package com.lijn.notificationfilter.back.manager.filterservice;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-public class DoFilterProxyFactory
+public class LogProxyFactory
 {
     private static InvocationHandler handler = null;
 

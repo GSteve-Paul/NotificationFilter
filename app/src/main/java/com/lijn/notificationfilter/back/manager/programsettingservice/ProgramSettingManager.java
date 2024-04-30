@@ -1,12 +1,12 @@
-package com.lijn.notificationfilter.back.manager;
+package com.lijn.notificationfilter.back.manager.programsettingservice;
 
 import com.lijn.notificationfilter.back.entity.programsetting.ProgramSetting;
-import com.lijn.notificationfilter.back.io.ProgramSettingReader;
-import com.lijn.notificationfilter.back.io.ProgramSettingWriter;
+import com.lijn.notificationfilter.back.io.programsettingio.ProgramSettingReader;
+import com.lijn.notificationfilter.back.io.programsettingio.ProgramSettingWriter;
 
 import java.io.IOException;
 
-public class ProgramSettingManager
+public final class ProgramSettingManager implements IProgramSettingManager
 {
     private static volatile ProgramSettingManager mInstance;
     private ProgramSetting programSetting;
@@ -38,13 +38,14 @@ public class ProgramSettingManager
         return mInstance;
     }
 
+    @Override
     public ProgramSetting getProgramSetting()
     {
         return programSetting;
     }
 
     @Override
-    protected void finalize() throws Throwable
+    public void finalize() throws Throwable
     {
         ProgramSettingWriter.getInstance().write(programSetting);
     }

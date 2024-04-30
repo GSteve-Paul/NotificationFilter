@@ -1,13 +1,14 @@
-package com.lijn.notificationfilter.back.io;
+package com.lijn.notificationfilter.back.io.profileio;
 
 import android.content.Context;
 import com.google.gson.Gson;
 import com.lijn.notificationfilter.back.entity.FilterData;
+import com.lijn.notificationfilter.back.io.DataReader;
 import com.lijn.notificationfilter.global.ResourceHolder;
 
 import java.io.*;
 
-public class GlobalProfileReader
+public class GlobalProfileReader extends DataReader<FilterData>
 {
     private static volatile GlobalProfileReader mInstance;
 
@@ -28,29 +29,8 @@ public class GlobalProfileReader
         return mInstance;
     }
 
-    private void initializeFile() throws IOException
-    {
-        Context context = ResourceHolder.getContext();
-        File file = new File(context.getFilesDir(), ResourceHolder.GlobalProfileFileName);
-        if(!file.exists())
-        {
-            FilterData data = new FilterData();
-            if(file.createNewFile())
-            {
-                GlobalProfileWriter.getInstance().write(data);
-            }
-            else
-            {
-                throw new IOException("unable to create profile file");
-            }
-        }
-        else
-        {
-            throw new IOException("unable to read profile file");
-        }
-    }
-
-    private Reader getReader() throws IOException
+    @Override
+    protected Reader getReader()
     {
         Context context = ResourceHolder.getContext();
         InputStreamReader inputStreamReader = null;
@@ -63,19 +43,18 @@ public class GlobalProfileReader
         }
         catch (IOException e)
         {
-            this.initializeFile();
-            FileInputStream fis =
-                    context.openFileInput(ResourceHolder.GlobalProfileFileName);
-            inputStreamReader = new InputStreamReader(fis);
-            return inputStreamReader;
+            e.printStackTrace();
+            return null;
         }
     }
 
+    @Override
     public FilterData read() throws IOException
     {
         Gson gson = new Gson();
         Reader reader = getReader();
         FilterData data = gson.fromJson(reader, FilterData.class);
+        reader.close();
         return data;
     }
 }

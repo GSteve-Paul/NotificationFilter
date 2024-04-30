@@ -1,4 +1,4 @@
-package com.lijn.notificationfilter.back.manager;
+package com.lijn.notificationfilter.back.manager.filterservice;
 
 import android.app.Notification;
 import com.lijn.notificationfilter.back.entity.Program;

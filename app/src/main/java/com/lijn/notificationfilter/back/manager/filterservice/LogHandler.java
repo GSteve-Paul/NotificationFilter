@@ -1,8 +1,10 @@
-package com.lijn.notificationfilter.back.manager;
+package com.lijn.notificationfilter.back.manager.filterservice;
 
 import android.app.Notification;
 import com.lijn.notificationfilter.back.entity.MyLog;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
+import com.lijn.notificationfilter.back.manager.logservice.LogManager;
+import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

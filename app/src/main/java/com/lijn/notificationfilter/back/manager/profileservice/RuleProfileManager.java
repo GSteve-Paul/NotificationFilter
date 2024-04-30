@@ -1,15 +1,16 @@
-package com.lijn.notificationfilter.back.manager;
+package com.lijn.notificationfilter.back.manager.profileservice;
 
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.entity.InServiceType;
 import com.lijn.notificationfilter.back.entity.Program;
-import com.lijn.notificationfilter.back.io.RuleProfileReader;
-import com.lijn.notificationfilter.back.io.RuleProfileWriter;
+import com.lijn.notificationfilter.back.io.profileio.RuleProfileReader;
+import com.lijn.notificationfilter.back.io.profileio.RuleProfileWriter;
+import com.lijn.notificationfilter.back.manager.filterservice.InServiceManager;
 
 import java.io.IOException;
 import java.util.List;
 
-public class RuleProfileManager
+public final class RuleProfileManager implements IRuleProfileManager
 {
     private volatile static RuleProfileManager mInstance;
 
@@ -30,13 +31,13 @@ public class RuleProfileManager
         return mInstance;
     }
 
-    public List<FilterData> readProfile()
+    @Override
+    public List<FilterData> read()
     {
         List<FilterData> filterDataList = null;
         try
         {
-            filterDataList = RuleProfileReader.getInstance()
-                    .ReadFilterData();
+            filterDataList = RuleProfileReader.getInstance().read();
         }
         catch (IOException ioException)
         {
@@ -45,9 +46,10 @@ public class RuleProfileManager
         return filterDataList;
     }
 
-    public FilterData readProfile(Program program)
+    @Override
+    public FilterData read(Program program)
     {
-        List<FilterData> filterDataList = readProfile();
+        List<FilterData> filterDataList = read();
         for (FilterData filterData : filterDataList)
         {
             if (filterData.getProgram().equals(program))
@@ -60,11 +62,12 @@ public class RuleProfileManager
         return filterData;
     }
 
-    public void saveProfile(List<FilterData> filterDataList)
+    @Override
+    public void save(List<FilterData> filterDataList)
     {
         try
         {
-            RuleProfileWriter.getInstance().writeFilterData(filterDataList);
+            RuleProfileWriter.getInstance().write(filterDataList);
             InServiceManager.getInstance().clearRuleCache();
         }
         catch (IOException ioException)
