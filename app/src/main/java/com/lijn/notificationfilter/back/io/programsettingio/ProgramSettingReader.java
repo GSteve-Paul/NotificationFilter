@@ -4,18 +4,39 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.lijn.notificationfilter.back.entity.programsetting.ProgramSetting;
 import com.lijn.notificationfilter.back.io.DataReader;
-import com.lijn.notificationfilter.global.ResourceHolder;
+import com.lijn.notificationfilter.back.util.ResourceHolder;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ProgramSettingReader extends DataReader<ProgramSetting>
 {
     private volatile static ProgramSettingReader mInstance = null;
 
-    private ProgramSettingReader() {}
+    private ProgramSettingReader()
+    {
+        Context context = ResourceHolder.getContext();
+        File file = context.getFilesDir();
+
+        Path path = Paths.get(file.getAbsolutePath());
+        path.resolve(ResourceHolder.ProgramProfileFileName);
+
+        file = path.toFile();
+        try
+        {
+            ProgramSetting setting = new ProgramSetting();
+            if (!file.exists())
+            {
+                file.createNewFile();
+                ProgramSettingWriter.getInstance().write(setting);
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public static ProgramSettingReader getInstance()
     {

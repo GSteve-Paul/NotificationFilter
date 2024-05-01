@@ -3,7 +3,7 @@ package com.lijn.notificationfilter.back.io.logio;
 import android.content.Context;
 import com.lijn.notificationfilter.back.entity.MyLog;
 import com.lijn.notificationfilter.back.io.DataWriter;
-import com.lijn.notificationfilter.global.ResourceHolder;
+import com.lijn.notificationfilter.back.util.ResourceHolder;
 
 import java.io.BufferedWriter;
 import java.io.File;

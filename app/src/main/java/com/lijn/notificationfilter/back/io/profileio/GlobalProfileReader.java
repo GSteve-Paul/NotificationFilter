@@ -4,18 +4,39 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.io.DataReader;
-import com.lijn.notificationfilter.global.ResourceHolder;
+import com.lijn.notificationfilter.back.util.ResourceHolder;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class GlobalProfileReader extends DataReader<FilterData>
 {
     private static volatile GlobalProfileReader mInstance;
 
-    private GlobalProfileReader() {}
+    private GlobalProfileReader()
+    {
+        Context context = ResourceHolder.getContext();
+        File file = context.getFilesDir();
+
+        Path path = Paths.get(file.getAbsolutePath());
+        path.resolve(ResourceHolder.GlobalProfileFileName);
+
+        file = path.toFile();
+        try
+        {
+            FilterData data = new FilterData();
+            if (!file.exists())
+            {
+                file.createNewFile();
+                GlobalProfileWriter.getInstance().write(data);
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public static GlobalProfileReader getInstance()
     {

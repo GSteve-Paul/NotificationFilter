@@ -4,7 +4,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.io.DataWriter;
-import com.lijn.notificationfilter.global.ResourceHolder;
+import com.lijn.notificationfilter.back.util.ResourceHolder;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

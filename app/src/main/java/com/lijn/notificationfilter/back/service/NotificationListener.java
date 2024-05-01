@@ -3,6 +3,7 @@ package com.lijn.notificationfilter.back.service;
 import android.app.Notification;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.util.Log;
 import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
 import com.lijn.notificationfilter.back.manager.filterservice.IDoFilter;
@@ -14,6 +15,8 @@ public class NotificationListener extends NotificationListenerService
     @Override
     public void onNotificationPosted(StatusBarNotification sbn)
     {
+        Log.d("NotificationListener", "onNotificationPosted: ");
+
         String packageName = sbn.getPackageName();
         String notificationKey = sbn.getKey();
 
