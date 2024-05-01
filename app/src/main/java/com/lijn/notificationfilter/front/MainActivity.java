@@ -9,7 +9,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lijn.notificationfilter.R;
-import com.lijn.notificationfilter.back.NotificationListener;
+import com.lijn.notificationfilter.back.service.NotificationListener;
 
 public class MainActivity extends AppCompatActivity
 {

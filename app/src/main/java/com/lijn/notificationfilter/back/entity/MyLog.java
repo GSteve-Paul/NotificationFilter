@@ -3,13 +3,14 @@ package com.lijn.notificationfilter.back.entity;
 import android.app.Notification;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class MyLog
 {
     private NotificationType notificationType;
     private String logText;
-    private LocalTime logTime;
+    private LocalDateTime logTime;
 
     public MyLog(Notification notification,
                  NotificationType notificationType)
@@ -25,11 +26,11 @@ public class MyLog
         title.replaceAll("\r\n", "");
         title.replaceAll("\n", "");
 
-        logTime = LocalTime.now();
+        logTime = LocalDateTime.now();
         logText = title + " " + bigText + " " + txt + "\n";
     }
 
-    public LocalTime getLogTime() {return logTime;}
+    public LocalDateTime getLogTime() {return logTime;}
 
     public String getLogText() {return logText;}
 

@@ -5,6 +5,7 @@ import com.lijn.notificationfilter.back.io.logio.LogWriter;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -55,6 +56,18 @@ public final class LogManager implements ILogManager
         {
             return;
         }
+
+        if(!logBuffer.isEmpty())
+        {
+            MyLog lastLog = logBuffer.get(logBuffer.size() - 1);
+            LocalDate lastLocalDate = lastLog.getLogTime().toLocalDate();
+            LocalDate nowLocalDate = LocalDate.now();
+            if(nowLocalDate.isAfter(lastLocalDate))
+            {
+                this.flush();
+            }
+        }
+
         logCache.add(log);
         if (logCache.size() > cacheSize)
         {

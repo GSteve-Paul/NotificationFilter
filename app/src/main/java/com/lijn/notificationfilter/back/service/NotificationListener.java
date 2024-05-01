@@ -1,4 +1,4 @@
-package com.lijn.notificationfilter.back;
+package com.lijn.notificationfilter.back.service;
 
 import android.app.Notification;
 import android.service.notification.NotificationListenerService;

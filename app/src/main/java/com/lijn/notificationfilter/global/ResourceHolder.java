@@ -14,9 +14,8 @@ public class ResourceHolder
 
     public static final String ProgramProfileFileName = "program_profile.json";
 
-    public static String getLogFileName()
+    public static String getLogFileName(LocalDate date)
     {
-        LocalDate date = LocalDate.now();
         String year = Integer.toString(date.getYear());
         String month = Integer.toString(date.getMonthValue());
         String day = Integer.toString(date.getDayOfMonth());

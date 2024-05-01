@@ -45,7 +45,7 @@ public final class ProgramSettingManager implements IProgramSettingManager
     }
 
     @Override
-    public void finalize() throws Throwable
+    protected void finalize() throws Throwable
     {
         ProgramSettingWriter.getInstance().write(programSetting);
     }
