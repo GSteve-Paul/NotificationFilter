@@ -51,18 +51,18 @@ public final class LogManager implements ILogManager
     @Override
     public void writeLog(MyLog log) throws IOException
     {
-        if(!ProgramSettingManager.getInstance().getProgramSetting()
+        if (!ProgramSettingManager.getInstance().getProgramSetting()
                 .getLogNotificationVariety(log.getNotificationType()))
         {
             return;
         }
 
-        if(!logBuffer.isEmpty())
+        if (!logBuffer.isEmpty())
         {
             MyLog lastLog = logBuffer.get(logBuffer.size() - 1);
             LocalDate lastLocalDate = lastLog.getLogTime().toLocalDate();
             LocalDate nowLocalDate = LocalDate.now();
-            if(nowLocalDate.isAfter(lastLocalDate))
+            if (nowLocalDate.isAfter(lastLocalDate))
             {
                 this.flush();
             }

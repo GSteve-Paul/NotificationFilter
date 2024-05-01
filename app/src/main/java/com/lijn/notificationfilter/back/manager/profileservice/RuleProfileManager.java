@@ -14,11 +14,11 @@ public final class RuleProfileManager implements IRuleProfileManager
 {
     private volatile static RuleProfileManager mInstance;
 
-    private RuleProfileManager(){}
+    private RuleProfileManager() {}
 
     public static RuleProfileManager getInstance()
     {
-        if(mInstance == null)
+        if (mInstance == null)
         {
             synchronized (RuleProfileManager.class)
             {

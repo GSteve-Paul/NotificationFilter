@@ -6,13 +6,10 @@ import java.time.LocalDate;
 
 public class ResourceHolder
 {
-    private static Context applicationContext;
-
     public static final String RuleProfileFileName = "rule_profile.json";
-
     public static final String GlobalProfileFileName = "global_profile.json";
-
     public static final String ProgramProfileFileName = "program_profile.json";
+    private static Context applicationContext;
 
     public static String getLogFileName(LocalDate date)
     {

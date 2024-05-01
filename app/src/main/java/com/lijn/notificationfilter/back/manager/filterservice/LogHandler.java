@@ -26,13 +26,13 @@ public class LogHandler<T> implements InvocationHandler
         Notification notification = null;
         for (Object arg : args)
         {
-            if(arg instanceof Notification)
+            if (arg instanceof Notification)
             {
                 notification = (Notification) arg;
             }
         }
 
-        if(ProgramSettingManager.getInstance().getProgramSetting()
+        if (ProgramSettingManager.getInstance().getProgramSetting()
                 .getLogNotificationVariety(type))
         {
             MyLog log = new MyLog(notification, type);

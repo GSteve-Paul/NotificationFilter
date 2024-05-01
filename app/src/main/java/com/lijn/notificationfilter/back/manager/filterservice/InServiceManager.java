@@ -8,8 +8,8 @@ import com.lijn.notificationfilter.back.entity.cache.LRUCache;
 import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
 import com.lijn.notificationfilter.back.manager.profileservice.GlobalProfileManager;
-import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 import com.lijn.notificationfilter.back.manager.profileservice.RuleProfileManager;
+import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 
 import java.util.ArrayList;
 import java.util.List;

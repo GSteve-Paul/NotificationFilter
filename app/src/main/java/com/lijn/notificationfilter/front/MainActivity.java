@@ -2,7 +2,6 @@ package com.lijn.notificationfilter.front;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -27,9 +26,6 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.bottom_navigation);
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-        Intent intentRight = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-        startActivity(intentRight);
 
         Intent intent = new Intent(this, NotificationListener.class);
         startService(intent);

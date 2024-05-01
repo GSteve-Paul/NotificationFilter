@@ -25,11 +25,11 @@ public final class ProgramSettingManager implements IProgramSettingManager
 
     public static ProgramSettingManager getInstance()
     {
-        if(mInstance == null)
+        if (mInstance == null)
         {
             synchronized (ProgramSettingManager.class)
             {
-                if(mInstance == null)
+                if (mInstance == null)
                 {
                     mInstance = new ProgramSettingManager();
                 }

@@ -6,7 +6,10 @@ import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.io.DataReader;
 import com.lijn.notificationfilter.global.ResourceHolder;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class GlobalProfileReader extends DataReader<FilterData>
 {
@@ -16,11 +19,11 @@ public class GlobalProfileReader extends DataReader<FilterData>
 
     public static GlobalProfileReader getInstance()
     {
-        if(mInstance == null)
+        if (mInstance == null)
         {
             synchronized (GlobalProfileReader.class)
             {
-                if(mInstance == null)
+                if (mInstance == null)
                 {
                     mInstance = new GlobalProfileReader();
                 }

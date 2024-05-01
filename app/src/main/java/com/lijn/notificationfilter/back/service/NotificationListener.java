@@ -5,9 +5,9 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
-import com.lijn.notificationfilter.back.manager.filterservice.LogProxyFactory;
 import com.lijn.notificationfilter.back.manager.filterservice.IDoFilter;
 import com.lijn.notificationfilter.back.manager.filterservice.InServiceManager;
+import com.lijn.notificationfilter.back.manager.filterservice.LogProxyFactory;
 
 public class NotificationListener extends NotificationListenerService
 {
@@ -22,7 +22,7 @@ public class NotificationListener extends NotificationListenerService
         IDoFilter doFilterManager = LogProxyFactory
                 .getLogProxy(InServiceManager.getInstance());
         NotificationType type = doFilterManager.doFilter(program, notification);
-        if(type == NotificationType.INTERCEPTED)
+        if (type == NotificationType.INTERCEPTED)
         {
             this.cancelNotification(notificationKey);
         }

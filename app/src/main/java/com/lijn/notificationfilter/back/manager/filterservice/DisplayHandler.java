@@ -11,7 +11,7 @@ public class DisplayHandler<T> implements InvocationHandler
 {
     T handler;
 
-    public DisplayHandler(T handler) { this.handler = handler; }
+    public DisplayHandler(T handler) {this.handler = handler;}
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
@@ -21,7 +21,7 @@ public class DisplayHandler<T> implements InvocationHandler
         Notification notification = null;
         for (Object arg : args)
         {
-            if(arg instanceof Notification)
+            if (arg instanceof Notification)
             {
                 notification = (Notification) arg;
             }

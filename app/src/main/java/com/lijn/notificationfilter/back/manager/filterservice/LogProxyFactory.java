@@ -9,7 +9,7 @@ public class LogProxyFactory
 
     private static InvocationHandler getHandler(InServiceManager target)
     {
-        if(handler == null)
+        if (handler == null)
         {
             handler = new LogHandler<>(target);
         }
