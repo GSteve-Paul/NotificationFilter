@@ -43,7 +43,7 @@ public class LogWriter extends DataWriter<List<MyLog>>
         File file = context.getFilesDir();
 
         Path path = Paths.get(file.getAbsolutePath());
-        path.resolve("log");
+        path = path.resolve("log");
 
         path = path.resolve(logFileName);
 

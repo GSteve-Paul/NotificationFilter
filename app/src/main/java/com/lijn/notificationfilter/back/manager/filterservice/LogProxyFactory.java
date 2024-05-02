@@ -7,7 +7,7 @@ public class LogProxyFactory
 {
     private static InvocationHandler handler = null;
 
-    private static InvocationHandler getHandler(InServiceManager target)
+    private static InvocationHandler getHandler(IDoFilter target)
     {
         if (handler == null)
         {
@@ -16,9 +16,9 @@ public class LogProxyFactory
         return handler;
     }
 
-    public static InServiceManager getLogProxy(InServiceManager target)
+    public static IDoFilter getLogProxy(IDoFilter target)
     {
-        return (InServiceManager) Proxy.newProxyInstance(
+        return (IDoFilter) Proxy.newProxyInstance(
                 target.getClass().getClassLoader(),
                 target.getClass().getInterfaces(),
                 getHandler(target)

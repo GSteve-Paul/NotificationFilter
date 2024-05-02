@@ -20,7 +20,7 @@ public class GlobalProfileReader extends DataReader<FilterData>
         File file = context.getFilesDir();
 
         Path path = Paths.get(file.getAbsolutePath());
-        path.resolve(ResourceHolder.GlobalProfileFileName);
+        path = path.resolve(ResourceHolder.GlobalProfileFileName);
 
         file = path.toFile();
         try

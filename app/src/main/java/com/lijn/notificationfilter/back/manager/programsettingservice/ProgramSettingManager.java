@@ -1,5 +1,6 @@
 package com.lijn.notificationfilter.back.manager.programsettingservice;
 
+import android.util.Log;
 import com.lijn.notificationfilter.back.entity.programsetting.ProgramSetting;
 import com.lijn.notificationfilter.back.io.programsettingio.ProgramSettingReader;
 import com.lijn.notificationfilter.back.io.programsettingio.ProgramSettingWriter;
@@ -8,11 +9,13 @@ import java.io.IOException;
 
 public final class ProgramSettingManager implements IProgramSettingManager
 {
+    private static final String TAG = "ProgramSettingManager";
     private static volatile ProgramSettingManager mInstance;
     private ProgramSetting programSetting;
 
     private ProgramSettingManager()
     {
+        Log.d(TAG, "ProgramSettingManager: Create");
         try
         {
             programSetting = ProgramSettingReader.getInstance().read();

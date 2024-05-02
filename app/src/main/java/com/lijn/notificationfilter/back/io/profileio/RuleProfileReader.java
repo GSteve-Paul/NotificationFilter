@@ -23,7 +23,7 @@ public class RuleProfileReader extends DataReader<List<FilterData>>
         File file = context.getFilesDir();
 
         Path path = Paths.get(file.getAbsolutePath());
-        path.resolve(ResourceHolder.RuleProfileFileName);
+        path = path.resolve(ResourceHolder.RuleProfileFileName);
 
         file = path.toFile();
         try

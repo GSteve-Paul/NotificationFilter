@@ -1,6 +1,7 @@
 package com.lijn.notificationfilter.back.io.programsettingio;
 
 import android.content.Context;
+import android.util.Log;
 import com.google.gson.Gson;
 import com.lijn.notificationfilter.back.entity.programsetting.ProgramSetting;
 import com.lijn.notificationfilter.back.io.DataReader;
@@ -12,28 +13,36 @@ import java.nio.file.Paths;
 
 public class ProgramSettingReader extends DataReader<ProgramSetting>
 {
+    private static final String TAG = "ProgramSettingReader";
     private volatile static ProgramSettingReader mInstance = null;
 
     private ProgramSettingReader()
     {
+        Log.d(TAG, "ProgramSettingReader: Create");
         Context context = ResourceHolder.getContext();
         File file = context.getFilesDir();
 
         Path path = Paths.get(file.getAbsolutePath());
-        path.resolve(ResourceHolder.ProgramProfileFileName);
+        path = path.resolve(ResourceHolder.ProgramProfileFileName);
 
         file = path.toFile();
+        Log.i(TAG, "ProgramSettingReader: file path" + file.getAbsolutePath());
         try
         {
             ProgramSetting setting = new ProgramSetting();
+            Log.i(TAG, "ProgramSettingReader: exist type" + file.exists());
             if (!file.exists())
             {
-                file.createNewFile();
+                Log.d(TAG, "ProgramSettingReader: ProgramSetting does not exist");
+                boolean res = file.createNewFile();
+                Log.d(TAG, "ProgramSettingReader: create file " + res);
                 ProgramSettingWriter.getInstance().write(setting);
+                Log.d(TAG, "ProgramSettingReader: write default settings");
             }
         }
         catch (IOException e)
         {
+            Log.e(TAG, "ProgramSettingReader: Error creating program setting", e);
             e.printStackTrace();
         }
     }

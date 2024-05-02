@@ -1,6 +1,7 @@
 package com.lijn.notificationfilter.back.manager.filterservice;
 
 import android.app.Notification;
+import android.util.Log;
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.entity.InServiceType;
 import com.lijn.notificationfilter.back.entity.Program;
@@ -19,6 +20,7 @@ public class InServiceManager implements IDoFilter
     private static volatile InServiceManager mInstance = null;
     private LRUCache cache;
     private FilterData globalFilterData;
+    private static final String TAG = "InServiceManager";
 
     private InServiceManager()
     {
@@ -121,6 +123,7 @@ public class InServiceManager implements IDoFilter
     public NotificationType doFilter(Program program, Notification notification)
     {
         //if filter module is not enabled
+        Log.i(TAG, "doFilter: ");
         if (!ProgramSettingManager.getInstance().getProgramSetting()
                 .getRunning())
         {
