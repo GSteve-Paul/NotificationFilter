@@ -68,6 +68,8 @@ public class FilterHistory extends Fragment {
         return inflater.inflate(R.layout.fragment_filter_history, container, false);
     }
 
+
+    // 对FiterHistory进行美化，不过需要运行起来才能看到效果
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
