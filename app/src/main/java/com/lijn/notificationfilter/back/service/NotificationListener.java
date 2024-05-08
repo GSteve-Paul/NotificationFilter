@@ -1,23 +1,14 @@
 package com.lijn.notificationfilter.back.service;
 
-import android.app.ActivityManager;
 import android.app.Notification;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-import android.text.TextUtils;
 import android.util.Log;
 import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
-import com.lijn.notificationfilter.back.manager.filterservice.IDoFilter;
 import com.lijn.notificationfilter.back.manager.filterservice.InServiceManager;
-import com.lijn.notificationfilter.back.manager.filterservice.LogProxyFactory;
-import android.os.Process;
 
-import java.util.List;
+import java.io.IOException;
 
 public class NotificationListener extends NotificationListenerService
 {
@@ -48,9 +39,15 @@ public class NotificationListener extends NotificationListenerService
 
         Notification notification = sbn.getNotification();
         Program program = new Program(packageName);
-        IDoFilter doFilterManager = LogProxyFactory
-                .getLogProxy(InServiceManager.getInstance());
-        NotificationType type = doFilterManager.doFilter(program, notification);
+        NotificationType type = null;
+        try
+        {
+            type = InServiceManager.getInstance().doFilterProxy(program, notification);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         if (type == NotificationType.INTERCEPTED)
         {
             this.cancelNotification(notificationKey);

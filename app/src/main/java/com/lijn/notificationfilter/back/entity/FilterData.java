@@ -1,5 +1,7 @@
 package com.lijn.notificationfilter.back.entity;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,15 @@ public class FilterData
         blackList = new ArrayList<>();
         enabledType = InServiceType.NOT_USE;
         program = new Program();
+    }
+
+    public FilterData(Program program, Boolean needDisplay, InServiceType enabledType, List<String> whiteList, List<String> blackList)
+    {
+        this.program = program;
+        this.needDisplay = needDisplay;
+        this.enabledType = enabledType;
+        this.whiteList = whiteList;
+        this.blackList = blackList;
     }
 
     public Program getProgram()
@@ -69,5 +80,17 @@ public class FilterData
     public void setNeedDisplay(Boolean needDisplay)
     {
         this.needDisplay = needDisplay;
+    }
+
+    @Override
+    public boolean equals(@Nullable @org.jetbrains.annotations.Nullable Object obj)
+    {
+        if (obj == this) return true;
+        if (!(obj instanceof FilterData other)) return false;
+        return program.equals(other.program)
+                && enabledType.equals(other.enabledType)
+                && needDisplay.equals(other.needDisplay)
+                && whiteList.equals(other.whiteList)
+                && blackList.equals(other.blackList);
     }
 }

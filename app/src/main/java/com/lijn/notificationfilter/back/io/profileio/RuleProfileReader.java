@@ -2,6 +2,7 @@ package com.lijn.notificationfilter.back.io.profileio;
 
 import android.content.Context;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.io.DataReader;
 import com.lijn.notificationfilter.back.util.ResourceHolder;
@@ -80,7 +81,7 @@ public class RuleProfileReader extends DataReader<List<FilterData>>
     {
         Gson gson = new Gson();
         Reader reader = getReader();
-        List<FilterData> filterDataList = gson.fromJson(reader, List.class);
+        List<FilterData> filterDataList = gson.fromJson(reader, new TypeToken<List<FilterData>>(){}.getType());
         reader.close();
         return filterDataList;
     }

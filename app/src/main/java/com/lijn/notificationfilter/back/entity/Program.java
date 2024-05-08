@@ -6,7 +6,10 @@ public class Program
 {
     String packageName;
 
-    public Program() {}
+    public Program()
+    {
+        packageName = "";
+    }
 
     public Program(String packageName)
     {

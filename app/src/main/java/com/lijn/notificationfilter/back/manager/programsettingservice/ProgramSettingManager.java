@@ -48,8 +48,16 @@ public final class ProgramSettingManager implements IProgramSettingManager
     }
 
     @Override
-    protected void finalize() throws Throwable
+    public void flushProgramSetting() throws IOException
     {
         ProgramSettingWriter.getInstance().write(programSetting);
+    }
+
+    @Override
+    protected void finalize() throws Throwable
+    {
+        super.finalize();
+        Log.d(TAG, "finalize: flush the ProgramSetting");
+        flushProgramSetting();
     }
 }

@@ -30,7 +30,7 @@ public class ProgramSettingReader extends DataReader<ProgramSetting>
         try
         {
             ProgramSetting setting = new ProgramSetting();
-            Log.i(TAG, "ProgramSettingReader: exist type" + file.exists());
+            Log.i(TAG, "ProgramSettingReader: exist:" + file.exists());
             if (!file.exists())
             {
                 Log.d(TAG, "ProgramSettingReader: ProgramSetting does not exist");

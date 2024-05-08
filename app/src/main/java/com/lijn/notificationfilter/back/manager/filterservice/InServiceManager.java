@@ -4,18 +4,21 @@ import android.app.Notification;
 import android.util.Log;
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.entity.InServiceType;
+import com.lijn.notificationfilter.back.entity.MyLog;
 import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.entity.cache.LRUCache;
 import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
+import com.lijn.notificationfilter.back.manager.logservice.LogManager;
 import com.lijn.notificationfilter.back.manager.profileservice.GlobalProfileManager;
 import com.lijn.notificationfilter.back.manager.profileservice.RuleProfileManager;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InServiceManager implements IDoFilter
+public class InServiceManager
 {
     private static volatile InServiceManager mInstance = null;
     private LRUCache cache;
@@ -119,11 +122,10 @@ public class InServiceManager implements IDoFilter
         return check(notification, data);
     }
 
-    @Override
-    public NotificationType doFilter(Program program, Notification notification)
+    private NotificationType doFilter(Program program, Notification notification)
     {
         //if filter module is not enabled
-        Log.i(TAG, "doFilter: ");
+        Log.i(TAG, "doFilter_: ");
         if (!ProgramSettingManager.getInstance().getProgramSetting()
                 .getRunning())
         {
@@ -171,6 +173,21 @@ public class InServiceManager implements IDoFilter
 
         //if not any filter is enabled
         return NotificationType.UNCHECKED;
+    }
+
+    public NotificationType doFilterProxy(Program program, Notification notification) throws IOException
+    {
+
+        NotificationType result = doFilter(program, notification);
+
+        if (ProgramSettingManager.getInstance().getProgramSetting()
+            .getLogNotificationVariety(result))
+        {
+            MyLog log = new MyLog(notification, result);
+            LogManager.getInstance().writeLog(log);
+        }
+
+        return result;
     }
 
     public void clearRuleCache()

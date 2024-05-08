@@ -1,6 +1,8 @@
 package com.lijn.notificationfilter.back.entity.programsetting;
 
 
+import java.util.Objects;
+
 public class ProgramSetting
 {
     private Variety<NotificationType> logNotificationVariety;
@@ -21,9 +23,16 @@ public class ProgramSetting
         return logNotificationVariety.getVariety(notificationType);
     }
 
-    public void setLogNotificationVariety(NotificationType notificationType)
+    public void setLogNotificationVariety(NotificationType notificationType, boolean val)
     {
-        this.logNotificationVariety.setVariety(notificationType);
+        if (val)
+        {
+            this.logNotificationVariety.setVariety(notificationType);
+        }
+        else
+        {
+            this.logNotificationVariety.clearVariety(notificationType);
+        }
     }
 
     public boolean getFilterVariety(FilterType filterType)
@@ -31,9 +40,16 @@ public class ProgramSetting
         return filterVariety.getVariety(filterType);
     }
 
-    public void setFilterVariety(FilterType filterType)
+    public void setFilterVariety(FilterType filterType, boolean val)
     {
-        this.filterVariety.setVariety(filterType);
+        if (val)
+        {
+            this.filterVariety.setVariety(filterType);
+        }
+        else
+        {
+            this.filterVariety.clearVariety(filterType);
+        }
     }
 
     public boolean getAutoStartWhenBoot()
@@ -54,5 +70,22 @@ public class ProgramSetting
     public void setRunning(boolean running)
     {
         this.running = running;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof ProgramSetting that)) return false;
+        return Objects.equals(logNotificationVariety, that.logNotificationVariety)
+                && Objects.equals(filterVariety, that.filterVariety)
+                && Objects.equals(autoStartWhenBoot, that.autoStartWhenBoot)
+                && Objects.equals(running, that.running);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(logNotificationVariety, filterVariety, autoStartWhenBoot, running);
     }
 }

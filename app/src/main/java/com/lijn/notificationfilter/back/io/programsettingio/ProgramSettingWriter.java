@@ -1,6 +1,7 @@
 package com.lijn.notificationfilter.back.io.programsettingio;
 
 import android.content.Context;
+import android.util.Log;
 import com.google.gson.Gson;
 import com.lijn.notificationfilter.back.entity.programsetting.ProgramSetting;
 import com.lijn.notificationfilter.back.io.DataWriter;
@@ -12,9 +13,13 @@ import java.io.OutputStreamWriter;
 
 public class ProgramSettingWriter extends DataWriter<ProgramSetting>
 {
+    private static final String TAG = "ProgramSettingWriter";
     private static volatile ProgramSettingWriter mInstance = null;
 
-    private ProgramSettingWriter() {}
+    private ProgramSettingWriter() 
+    {
+        Log.i(TAG, "ProgramSettingWriter: Create");
+    }
 
     public static ProgramSettingWriter getInstance()
     {
@@ -51,6 +56,7 @@ public class ProgramSettingWriter extends DataWriter<ProgramSetting>
     @Override
     public void write(ProgramSetting programSetting) throws IOException
     {
+        Log.i(TAG, "write: ProgramSetting");
         OutputStreamWriter osw = getWriter();
         Gson gson = new Gson();
         String json = gson.toJson(programSetting);
