@@ -57,5 +57,5 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 @Override
 public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
     ProgramSettingManager.getInstance().getProgramSetting().setFilterVariety(FilterType.RULE);
-}
+ }
 }
