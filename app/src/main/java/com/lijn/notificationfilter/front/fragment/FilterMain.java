@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.lijn.notificationfilter.R;
+import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
+import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
+
 import org.jetbrains.annotations.NotNull;
 
 public class FilterMain extends Fragment
@@ -52,8 +55,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 }
 
 @Override
-public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState)
-{
-	ProgramSettingManager.getInstance().getProgramSetting().setFilterVariety(FilterType.RULE);
-
+public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    ProgramSettingManager.getInstance().getProgramSetting().setFilterVariety(FilterType.RULE);
+}
 }
