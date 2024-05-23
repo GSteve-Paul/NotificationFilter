@@ -49,6 +49,7 @@ public class InServiceManager
 
     private static boolean isInList(List<String> list, String text)
     {
+        if (text == null) return false;
         for (String str : list)
         {
             if (Pattern.matches(str, text))
