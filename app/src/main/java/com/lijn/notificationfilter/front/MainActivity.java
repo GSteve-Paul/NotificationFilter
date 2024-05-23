@@ -80,37 +80,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
             startActivity(intent);
         }
-        mytest();
         notificationIntent = new Intent(this, NotificationListener.class);
         startService(notificationIntent);
-    }
-
-    private void mytest()
-    {
-        RuleProfileManager ruleProfileManager = RuleProfileManager.getInstance();
-        List<FilterData> list = List.of(
-                new FilterData(new Program("com.example.notificationapp"),false, InServiceType.USE_BLACKLIST,List.of("white1","white2","white3"),List.of(".*通知.*")));
-        ruleProfileManager.save(list);
-
-        ProgramSettingManager manager = ProgramSettingManager.getInstance();
-        ProgramSetting setting = manager.getProgramSetting();
-        setting.setAutoStartWhenBoot(false);
-        setting.setRunning(true);
-        setting.setLogNotificationVariety(NotificationType.PASSED,true);
-        setting.setLogNotificationVariety(NotificationType.INTERCEPTED,true);
-        setting.setLogNotificationVariety(NotificationType.UNCHECKED,true);
-
-        setting.setFilterVariety(FilterType.RULE,true);
-        setting.setFilterVariety(FilterType.GLOBAL, true);
-        try
-        {
-            manager.flushProgramSetting();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
