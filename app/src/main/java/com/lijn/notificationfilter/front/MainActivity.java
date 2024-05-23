@@ -16,7 +16,19 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lijn.notificationfilter.R;
+import com.lijn.notificationfilter.back.entity.FilterData;
+import com.lijn.notificationfilter.back.entity.InServiceType;
+import com.lijn.notificationfilter.back.entity.Program;
+import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
+import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
+import com.lijn.notificationfilter.back.entity.programsetting.ProgramSetting;
+import com.lijn.notificationfilter.back.manager.profileservice.RuleProfileManager;
+import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 import com.lijn.notificationfilter.back.service.NotificationListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Filter;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -58,17 +70,11 @@ public class MainActivity extends AppCompatActivity
 
         //Permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_BOOT_COMPLETED) != PackageManager.PERMISSION_GRANTED)
-        {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.RECEIVE_BOOT_COMPLETED}, 1);
-        }
         if (!isEnabled())
         {
             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);

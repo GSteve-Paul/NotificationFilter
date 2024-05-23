@@ -16,14 +16,17 @@ public class MyLog
     {
         this.notificationType = notificationType;
         String txt = notification.extras.getString(Notification.EXTRA_TEXT);
-        txt.replaceAll("\r\n", "");
-        txt.replaceAll("\n", "");
+        if (txt == null) txt = "";
+        txt = txt.replaceAll("\r\n", "");
+        txt = txt.replaceAll("\n", "");
         String bigText = notification.extras.getString(Notification.EXTRA_BIG_TEXT);
-        bigText.replaceAll("\r\n", "");
-        bigText.replaceAll("\n", "");
+        if (bigText == null) bigText = "";
+        bigText = bigText.replaceAll("\r\n", "");
+        bigText = bigText.replaceAll("\n", "");
         String title = notification.extras.getString(Notification.EXTRA_TITLE);
-        title.replaceAll("\r\n", "");
-        title.replaceAll("\n", "");
+        if (title == null) title = "";
+        title = title.replaceAll("\r\n", "");
+        title = title.replaceAll("\n", "");
 
         logTime = LocalDateTime.now();
         logText = title + " " + bigText + " " + txt + "\n";
