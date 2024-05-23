@@ -3,8 +3,6 @@ package com.lijn.notificationfilter.back.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
-import com.lijn.notificationfilter.front.MainActivity;
 
 public class BootReceiver extends BroadcastReceiver
 {

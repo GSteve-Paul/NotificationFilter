@@ -1,7 +1,6 @@
 package com.lijn.notificationfilter;
 
 import android.content.Context;
-import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.google.gson.Gson;
@@ -11,7 +10,6 @@ import com.lijn.notificationfilter.back.entity.Program;
 import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
 import com.lijn.notificationfilter.back.entity.programsetting.ProgramSetting;
-import com.lijn.notificationfilter.back.io.profileio.GlobalProfileWriter;
 import com.lijn.notificationfilter.back.manager.profileservice.GlobalProfileManager;
 import com.lijn.notificationfilter.back.manager.profileservice.RuleProfileManager;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
@@ -20,11 +18,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -235,9 +233,9 @@ public class ExampleInstrumentedTest
 
         //check save and read
         List<FilterData> filterDataList1 = List.of(
-                new FilterData(new Program("program1"),false,InServiceType.USE_WHITELIST,List.of("white1","white2","white3"),List.of("black1","black2","black3","black4")),
-                new FilterData(new Program("program2"),true,InServiceType.NOT_USE,List.of("white4","white5","white6"),List.of("black4","black5","black6","black7")),
-                new FilterData(new Program("program3"),false,InServiceType.USE_BLACKLIST,List.of("white7","white8","white9","white10","white11"),List.of("black8","black9","black10","black11"))
+                new FilterData(new Program("program1"), false, InServiceType.USE_WHITELIST, List.of("white1", "white2", "white3"), List.of("black1", "black2", "black3", "black4")),
+                new FilterData(new Program("program2"), true, InServiceType.NOT_USE, List.of("white4", "white5", "white6"), List.of("black4", "black5", "black6", "black7")),
+                new FilterData(new Program("program3"), false, InServiceType.USE_BLACKLIST, List.of("white7", "white8", "white9", "white10", "white11"), List.of("black8", "black9", "black10", "black11"))
         );
         manager.save(filterDataList1);
         List<FilterData> list = manager.read();
@@ -261,7 +259,7 @@ public class ExampleInstrumentedTest
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         StringBuilder ans = new StringBuilder();
         String tmp;
-        while((tmp = bufferedReader.readLine()) != null)
+        while ((tmp = bufferedReader.readLine()) != null)
         {
             ans.append(tmp);
         }

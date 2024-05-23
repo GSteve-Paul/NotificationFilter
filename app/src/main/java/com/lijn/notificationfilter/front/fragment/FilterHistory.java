@@ -24,26 +24,27 @@ import java.util.concurrent.ConcurrentLinkedDeque;
  * create an instance of this fragment.
  */
 
-public class FilterHistory extends Fragment {
-
-    private ListView listView;
-    private ArrayAdapter<String> adapter;
-    private ConcurrentLinkedDeque<MyLog> logCache;
+public class FilterHistory extends Fragment
+{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private ListView listView;
+    private ArrayAdapter<String> adapter;
+    private ConcurrentLinkedDeque<MyLog> logCache;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public FilterHistory() {
+    public FilterHistory()
+    {
         // Required empty public constructor
     }
 
-    public static FilterHistory newInstance(String param1, String param2) {
+    public static FilterHistory newInstance(String param1, String param2)
+    {
         FilterHistory fragment = new FilterHistory();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -53,9 +54,11 @@ public class FilterHistory extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if (getArguments() != null)
+        {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -63,7 +66,8 @@ public class FilterHistory extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_filter_history, container, false);
     }
@@ -71,7 +75,8 @@ public class FilterHistory extends Fragment {
 
     // 对FiterHistory进行美化，不过需要运行起来才能看到效果
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
         listView = view.findViewById(R.id.recyclerView);
@@ -84,19 +89,25 @@ public class FilterHistory extends Fragment {
         logCache = LogManager.getInstance().getLogCache();
 
         // 将日志缓存中的数据添加到适配器
-        for (MyLog log : logCache) {
+        for (MyLog log : logCache)
+        {
             adapter.add(log.toString());
         }
 
         // 定时任务，每隔一段时间更新适配器的数据
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        new Timer().scheduleAtFixedRate(new TimerTask()
+        {
             @Override
-            public void run() {
-                getActivity().runOnUiThread(new Runnable() {
+            public void run()
+            {
+                getActivity().runOnUiThread(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         adapter.clear();
-                        for (MyLog log : logCache) {
+                        for (MyLog log : logCache)
+                        {
                             adapter.add(log.toString());
                         }
                     }

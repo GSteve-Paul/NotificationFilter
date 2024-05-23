@@ -16,7 +16,7 @@ public class ProgramSettingWriter extends DataWriter<ProgramSetting>
     private static final String TAG = "ProgramSettingWriter";
     private static volatile ProgramSettingWriter mInstance = null;
 
-    private ProgramSettingWriter() 
+    private ProgramSettingWriter()
     {
         Log.i(TAG, "ProgramSettingWriter: Create");
     }

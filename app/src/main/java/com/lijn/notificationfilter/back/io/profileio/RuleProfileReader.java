@@ -81,7 +81,7 @@ public class RuleProfileReader extends DataReader<List<FilterData>>
     {
         Gson gson = new Gson();
         Reader reader = getReader();
-        List<FilterData> filterDataList = gson.fromJson(reader, new TypeToken<List<FilterData>>(){}.getType());
+        List<FilterData> filterDataList = gson.fromJson(reader, new TypeToken<List<FilterData>>() {}.getType());
         reader.close();
         return filterDataList;
     }

@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment;
 import com.lijn.notificationfilter.R;
 import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
-
 import org.jetbrains.annotations.NotNull;
 
-public class FilterMain extends Fragment {
+public class FilterMain extends Fragment
+{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -21,10 +21,12 @@ public class FilterMain extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FilterMain() {
+    public FilterMain()
+    {
     }
 
-    public static FilterMain newInstance(String param1, String param2) {
+    public static FilterMain newInstance(String param1, String param2)
+    {
         FilterMain fragment = new FilterMain();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -34,9 +36,11 @@ public class FilterMain extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if (getArguments() != null)
+        {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -44,13 +48,15 @@ public class FilterMain extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         return inflater.inflate(R.layout.fragment_filter_main, container, false);
     }
 
 
     @Override
-    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState)
+    {
         ProgramSettingManager.getInstance().getProgramSetting()
                 .setFilterVariety(FilterType.RULE, true);
     }
