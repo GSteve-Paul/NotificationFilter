@@ -20,11 +20,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +144,16 @@ public class ExampleInstrumentedTest
         FileInputStream fis = ResourceHolder.getContext().openFileInput(ResourceHolder.ProgramProfileFileName);
         ProgramSetting setting = new Gson().fromJson(new InputStreamReader(fis), ProgramSetting.class);
         fis.close();
+        fis = ResourceHolder.getContext().openFileInput(ResourceHolder.ProgramProfileFileName);
+        BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+        StringBuffer sb = new StringBuffer();
+        String line;
+        while ((line = br.readLine()) != null)
+        {
+            sb.append(line);
+        }
+        br.close();
+        System.out.println(sb);
         Assert.assertEquals(setting, manager.getProgramSetting());
     }
 
@@ -241,6 +251,22 @@ public class ExampleInstrumentedTest
         Assert.assertEquals(filterData1, manager.read(new Program("program1")));
         Assert.assertEquals(filterData2, manager.read(new Program("program2")));
         Assert.assertEquals(filterData3, manager.read(new Program("program3")));
+
+        Context context = ResourceHolder.getContext();
+        InputStreamReader inputStreamReader = null;
+        FileInputStream fileInputStream =
+                context.openFileInput(ResourceHolder.RuleProfileFileName);
+        inputStreamReader = new InputStreamReader(fileInputStream
+                , StandardCharsets.UTF_8);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        StringBuilder ans = new StringBuilder();
+        String tmp;
+        while((tmp = bufferedReader.readLine()) != null)
+        {
+            ans.append(tmp);
+        }
+        System.out.println(ans);
+        bufferedReader.close();
     }
 
 }

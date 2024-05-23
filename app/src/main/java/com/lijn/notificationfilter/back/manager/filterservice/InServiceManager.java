@@ -17,13 +17,14 @@ import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSet
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class InServiceManager
 {
+    private static final String TAG = "InServiceManager";
     private static volatile InServiceManager mInstance = null;
     private LRUCache cache;
     private FilterData globalFilterData;
-    private static final String TAG = "InServiceManager";
 
     private InServiceManager()
     {
@@ -50,7 +51,7 @@ public class InServiceManager
     {
         for (String str : list)
         {
-            if (str.matches(text))
+            if (Pattern.matches(str, text))
             {
                 return true;
             }
@@ -181,7 +182,7 @@ public class InServiceManager
         NotificationType result = doFilter(program, notification);
 
         if (ProgramSettingManager.getInstance().getProgramSetting()
-            .getLogNotificationVariety(result))
+                .getLogNotificationVariety(result))
         {
             MyLog log = new MyLog(notification, result);
             LogManager.getInstance().writeLog(log);
