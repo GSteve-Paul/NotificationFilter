@@ -48,9 +48,16 @@ public final class ProgramSettingManager implements IProgramSettingManager
     }
 
     @Override
-    public void flushProgramSetting() throws IOException
+    public void flushProgramSetting()
     {
-        ProgramSettingWriter.getInstance().write(programSetting);
+        try
+        {
+            ProgramSettingWriter.getInstance().write(programSetting);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
