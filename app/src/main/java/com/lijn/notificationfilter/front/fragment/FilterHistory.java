@@ -73,7 +73,7 @@ public class FilterHistory extends Fragment
     }
 
 
-    // 对FiterHistory进行美化，不过需要运行起来才能看到效果
+    // 对FilterHistory进行美化，不过需要运行起来才能看到效果
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
@@ -113,6 +113,6 @@ public class FilterHistory extends Fragment
                     }
                 });
             }
-        }, 0, 1000); // 每隔1秒更新一次数据
+        }, 0, 10000); // 每隔1秒更新一次数据
     }
 }
