@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-->
-
-尝试用CardView和RecyclerView实现卡片式瀑布流效果
-<-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".front.fragment.FilterHistory">
 
-    <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="162dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/card_bg"
-            android:elevation="8dp"
-            android:padding="16dp">
-
-    </androidx.cardview.widget.CardView>
-
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="274dp"/>
+            android:layout_height="match_parent"
+            android:id="@+id/log_view"
+            />
 </FrameLayout>

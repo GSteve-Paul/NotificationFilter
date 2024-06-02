@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 public final class LogManager implements ILogManager
 {
@@ -16,13 +15,12 @@ public final class LogManager implements ILogManager
     private final static Integer bufferSize = 500;
     private volatile static LogManager mInstance;
     private List<MyLog> logBuffer;
-
-    private ConcurrentLinkedDeque<MyLog> logCache;
+    private List<MyLog> logCache;
 
     private LogManager()
     {
         logBuffer = new ArrayList<>();
-        logCache = new ConcurrentLinkedDeque<>();
+        logCache = new ArrayList<>();
     }
 
     public static LogManager getInstance()
@@ -71,7 +69,7 @@ public final class LogManager implements ILogManager
         logCache.add(log);
         if (logCache.size() > cacheSize)
         {
-            logCache.removeFirst();
+            logCache.remove(0);
         }
 
         logBuffer.add(log);
@@ -82,7 +80,7 @@ public final class LogManager implements ILogManager
     }
 
     @Override
-    public ConcurrentLinkedDeque<MyLog> getLogCache()
+    public List<MyLog> getLogCache()
     {
         return logCache;
     }

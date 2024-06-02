@@ -3,7 +3,7 @@ package com.lijn.notificationfilter.back.manager.logservice;
 import com.lijn.notificationfilter.back.entity.MyLog;
 
 import java.io.IOException;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.List;
 
 public sealed interface ILogManager permits LogManager
 {
@@ -11,5 +11,5 @@ public sealed interface ILogManager permits LogManager
 
     void writeLog(MyLog log) throws IOException;
 
-    ConcurrentLinkedDeque<MyLog> getLogCache();
+    List<MyLog> getLogCache();
 }

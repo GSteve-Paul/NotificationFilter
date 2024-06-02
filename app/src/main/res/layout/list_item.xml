@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:background="@drawable/list_item_background">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="20sp"
+            android:id="@+id/notificationTime"
+    />
 
-    <!-- 在这里添加希望显示的其他视图组件 -->
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="20sp"
+            android:id="@+id/notificationType"
+    />
 
-</RelativeLayout>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="20sp"
+            android:id="@+id/notificationMsg"
+    />
+</LinearLayout>

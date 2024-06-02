@@ -1,6 +1,7 @@
 package com.lijn.notificationfilter.back.entity;
 
 import android.app.Notification;
+import com.google.gson.Gson;
 import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
 
 import java.time.LocalDateTime;
@@ -41,6 +42,7 @@ public class MyLog
     @Override
     public String toString()
     {
-        return logTime + " " + notificationType + " " + logText;
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }
