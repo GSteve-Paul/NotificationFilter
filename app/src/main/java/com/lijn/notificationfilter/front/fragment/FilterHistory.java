@@ -9,6 +9,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.lijn.notificationfilter.R;
 import com.lijn.notificationfilter.back.entity.MyLog;
@@ -20,7 +21,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FilterHistory#newInstance} factory method to
@@ -29,7 +29,6 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class FilterHistory extends Fragment
 {
-
     // here are useless trash
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,9 +81,9 @@ public class FilterHistory extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-
         recyclerView = view.findViewById(R.id.log_view);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         List<MyLog> cache = LogManager.getInstance().getLogCache();
         adapter = new LogAdapter(cache);
         recyclerView.setAdapter(adapter);

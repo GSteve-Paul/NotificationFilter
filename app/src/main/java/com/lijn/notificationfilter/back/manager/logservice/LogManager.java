@@ -1,5 +1,6 @@
 package com.lijn.notificationfilter.back.manager.logservice;
 
+import android.util.Log;
 import com.lijn.notificationfilter.back.entity.MyLog;
 import com.lijn.notificationfilter.back.io.logio.LogWriter;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public final class LogManager implements ILogManager
 {
+    private final String TAG = "LogManager";
     private final static Integer cacheSize = 1000;
     private final static Integer bufferSize = 500;
     private volatile static LogManager mInstance;
@@ -39,16 +41,25 @@ public final class LogManager implements ILogManager
     }
 
     @Override
-    public void flush() throws IOException
+    public void flush()
     {
-        LogWriter logWriter = LogWriter.getInstance();
-        logWriter.write(logBuffer);
-        logBuffer.clear();
+        try
+        {
+            LogWriter logWriter = LogWriter.getInstance();
+            logWriter.write(logBuffer);
+            logBuffer.clear();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void writeLog(MyLog log) throws IOException
     {
+        Log.i(TAG, "writeLog: " + log.toString());
+
         if (!ProgramSettingManager.getInstance().getProgramSetting()
                 .getLogNotificationVariety(log.getNotificationType()))
         {
@@ -66,17 +77,22 @@ public final class LogManager implements ILogManager
             }
         }
 
+        Log.i(TAG, "start addLogCache: " + logCache.size());
         logCache.add(log);
         if (logCache.size() > cacheSize)
         {
             logCache.remove(0);
         }
+        Log.i(TAG, "finish addLogCache: " + logCache.size());
 
+        Log.i(TAG, "start addLogBuffer: " + logBuffer.size());
         logBuffer.add(log);
         if (logBuffer.size() > bufferSize)
         {
             this.flush();
         }
+        Log.i(TAG, "finish addLogBuffer: " + logBuffer.size());
+
     }
 
     @Override

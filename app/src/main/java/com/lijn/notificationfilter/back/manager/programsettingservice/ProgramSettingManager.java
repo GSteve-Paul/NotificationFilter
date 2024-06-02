@@ -59,12 +59,4 @@ public final class ProgramSettingManager implements IProgramSettingManager
             e.printStackTrace();
         }
     }
-
-    @Override
-    protected void finalize() throws Throwable
-    {
-        super.finalize();
-        Log.d(TAG, "finalize: flush the ProgramSetting");
-        flushProgramSetting();
-    }
 }

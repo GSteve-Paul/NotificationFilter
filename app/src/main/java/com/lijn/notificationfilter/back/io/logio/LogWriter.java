@@ -5,10 +5,7 @@ import com.lijn.notificationfilter.back.entity.MyLog;
 import com.lijn.notificationfilter.back.io.DataWriter;
 import com.lijn.notificationfilter.back.util.ResourceHolder;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -16,8 +13,6 @@ import java.util.List;
 public class LogWriter extends DataWriter<List<MyLog>>
 {
     private volatile static LogWriter mInstance = null;
-
-    private String logFileName;
 
     private LogWriter() {}
 
@@ -41,16 +36,17 @@ public class LogWriter extends DataWriter<List<MyLog>>
     {
         Context context = ResourceHolder.getContext();
         File file = context.getFilesDir();
-
         Path path = Paths.get(file.getAbsolutePath());
-        path = path.resolve("log");
+        path = path.resolve(ResourceHolder.LogFileName);
+        file  = path.toFile();
 
-        path = path.resolve(logFileName);
-
-        file = path.toFile();
         try
         {
-            FileWriter fw = new FileWriter(file);
+            if(!file.exists())
+            {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file, true);
             return fw;
         }
         catch (IOException e)
@@ -63,13 +59,12 @@ public class LogWriter extends DataWriter<List<MyLog>>
     @Override
     public void write(List<MyLog> logs) throws IOException
     {
-        this.logFileName = ResourceHolder.getLogFileName
-                (logs.get(logs.size() - 1).getLogTime().toLocalDate());
         FileWriter fw = this.getWriter();
         BufferedWriter bw = new BufferedWriter(fw);
         for (MyLog log : logs)
         {
             bw.write(log.toString());
+            bw.newLine();
         }
         bw.flush();
         bw.close();

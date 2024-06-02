@@ -48,6 +48,7 @@ public class NotificationListener extends NotificationListenerService
         {
             e.printStackTrace();
         }
+        Log.i(TAG, "onNotificationPosted: " + type);
         if (type == NotificationType.INTERCEPTED)
         {
             this.cancelNotification(notificationKey);
