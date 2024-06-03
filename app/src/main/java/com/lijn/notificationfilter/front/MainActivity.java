@@ -26,6 +26,7 @@ import com.lijn.notificationfilter.back.manager.logservice.LogManager;
 import com.lijn.notificationfilter.back.manager.profileservice.RuleProfileManager;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 import com.lijn.notificationfilter.back.service.NotificationListener;
+import com.lijn.notificationfilter.back.util.ResourceHolder;
 
 import java.io.IOException;
 import java.util.List;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
         notificationIntent = new Intent(this, NotificationListener.class);
+        NotificationListener.requestRebind(new ComponentName(ResourceHolder.getContext(), NotificationListener.class));
         startService(notificationIntent);
 
         mytest();

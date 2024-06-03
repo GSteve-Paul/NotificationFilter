@@ -1,6 +1,8 @@
 package com.lijn.notificationfilter.back.service;
 
 import android.app.Notification;
+import android.content.Intent;
+import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -13,7 +15,6 @@ import java.io.IOException;
 public class NotificationListener extends NotificationListenerService
 {
     private static final String TAG = "NotificationListener";
-
 
     @Override
     public void onCreate()
@@ -56,9 +57,16 @@ public class NotificationListener extends NotificationListenerService
     }
 
     @Override
+    public void onListenerDisconnected()
+    {
+        super.onListenerDisconnected();
+        Log.d(TAG, "onListenerDisconnected: ");
+    }
+
+    @Override
     public void onDestroy()
     {
-        super.onDestroy();
         Log.d(TAG, "onDestroy: ");
+        super.onDestroy();
     }
 }
