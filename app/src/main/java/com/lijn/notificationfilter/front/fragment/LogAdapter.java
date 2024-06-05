@@ -1,6 +1,5 @@
 package com.lijn.notificationfilter.front.fragment;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.lijn.notificationfilter.R;
 import com.lijn.notificationfilter.back.entity.MyLog;
-import com.lijn.notificationfilter.front.MainActivity;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder>
 {

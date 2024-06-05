@@ -1,11 +1,10 @@
 package com.lijn.notificationfilter.front.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,11 +14,7 @@ import com.lijn.notificationfilter.R;
 import com.lijn.notificationfilter.back.entity.MyLog;
 import com.lijn.notificationfilter.back.manager.logservice.LogManager;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +24,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class FilterHistory extends Fragment
 {
+    private static final String TAG = "FilterHistory";
     // here are useless trash
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,10 +78,22 @@ public class FilterHistory extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.log_view);
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         List<MyLog> cache = LogManager.getInstance().getLogCache();
         adapter = new LogAdapter(cache);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        Log.i(TAG, "onResume: ");
     }
 }

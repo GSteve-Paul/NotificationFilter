@@ -12,10 +12,10 @@ import java.util.List;
 
 public final class LogManager implements ILogManager
 {
-    private final String TAG = "LogManager";
     private final static Integer cacheSize = 1000;
     private final static Integer bufferSize = 500;
     private volatile static LogManager mInstance;
+    private final String TAG = "LogManager";
     private List<MyLog> logBuffer;
     private List<MyLog> logCache;
 

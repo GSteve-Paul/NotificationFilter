@@ -5,7 +5,10 @@ import com.lijn.notificationfilter.back.entity.MyLog;
 import com.lijn.notificationfilter.back.io.DataWriter;
 import com.lijn.notificationfilter.back.util.ResourceHolder;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -38,11 +41,11 @@ public class LogWriter extends DataWriter<List<MyLog>>
         File file = context.getFilesDir();
         Path path = Paths.get(file.getAbsolutePath());
         path = path.resolve(ResourceHolder.LogFileName);
-        file  = path.toFile();
+        file = path.toFile();
 
         try
         {
-            if(!file.exists())
+            if (!file.exists())
             {
                 file.createNewFile();
             }

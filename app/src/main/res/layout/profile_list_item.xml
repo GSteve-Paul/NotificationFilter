@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@drawable/list_item_background">
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginVertical="5sp"
+              android:textSize="20sp"
+              android:id="@+id/programPackageNameText"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5sp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintWidth_percent="0.5">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      app:layout_constraintWidth_percent="0.5"
+                      android:textSize="20sp"
+                      android:id="@+id/isDisplayLabel"
+                      android:text="播放"/>
+
+            <TextView android:layout_width="0sp"
+                      android:layout_height="wrap_content"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintRight_toRightOf="parent"
+                      app:layout_constraintLeft_toRightOf="@id/isDisplayLabel"
+                      android:textSize="20sp"
+                      android:textAlignment="viewStart"
+                      android:id="@+id/isDisplayText"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintWidth_percent="0.5">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      app:layout_constraintWidth_percent="0.5"
+                      android:textSize="20sp"
+                      android:id="@+id/enabledTypeLabel"
+                      android:text="状态"/>
+
+            <TextView android:layout_width="0sp"
+                      android:layout_height="wrap_content"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintRight_toRightOf="parent"
+                      app:layout_constraintLeft_toRightOf="@id/enabledTypeLabel"
+                      android:textSize="20sp"
+                      android:textAlignment="viewStart"
+                      android:id="@+id/enabledTypeText"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5sp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:textSize="20sp"
+                  android:text="白名单"
+                  android:id="@+id/whiteListText"/>
+
+        <Spinner
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toRightOf="@id/whiteListText"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/whiteListSpinner"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5sp">
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:textSize="20sp"
+                  android:text="黑名单"
+                  android:id="@+id/blackListText"/>
+
+        <Spinner
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toRightOf="@id/blackListText"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/blackListSpinner"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

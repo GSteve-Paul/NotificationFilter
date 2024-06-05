@@ -2,8 +2,6 @@ package com.lijn.notificationfilter.back.util;
 
 import android.content.Context;
 
-import java.time.LocalDate;
-
 public class ResourceHolder
 {
     public static final String RuleProfileFileName = "rule_profile.json";

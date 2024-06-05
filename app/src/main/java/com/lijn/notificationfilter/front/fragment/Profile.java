@@ -3,6 +3,7 @@ package com.lijn.notificationfilter.front.fragment;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.lijn.notificationfilter.R;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,15 +23,20 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Profile extends Fragment
 {
+    private static final String TAG = "Profile";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Button ruleButton;
-    Button globalButton;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Button ruleButton;
+    Button globalButton;
+    Button deleteButton;
+    Button editButton;
+    Button addButton;
+    RecyclerView ruleProfileView;
 
     public Profile()
     {
@@ -63,8 +71,6 @@ public class Profile extends Fragment
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
@@ -82,6 +88,14 @@ public class Profile extends Fragment
         ruleButton = view.findViewById(R.id.ruleButton);
         globalButton = view.findViewById(R.id.globalButton);
 
+        deleteButton = view.findViewById(R.id.deleteProfileButton);
+        editButton = view.findViewById(R.id.editProfileButton);
+        addButton = view.findViewById(R.id.addProfileButton);
+
+        ruleProfileView = view.findViewById(R.id.ruleProfileView);
+        ruleProfileView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
         ruleButton.setOnClickListener((v) -> {
             turnRuleProfile();
         });
@@ -90,6 +104,14 @@ public class Profile extends Fragment
             turnGlobalProfile();
         });
 
+
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        Log.i(TAG, "onResume: ");
     }
 
     private void turnGlobalProfile()

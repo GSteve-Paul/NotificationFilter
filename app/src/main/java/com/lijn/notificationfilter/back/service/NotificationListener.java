@@ -1,8 +1,6 @@
 package com.lijn.notificationfilter.back.service;
 
 import android.app.Notification;
-import android.content.Intent;
-import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
