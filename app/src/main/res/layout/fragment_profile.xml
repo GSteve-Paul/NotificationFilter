@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".front.fragment.Profile">
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/filterSelector"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
@@ -23,7 +24,6 @@
                 android:background="#DBF6ED"
                 android:id="@+id/globalButton"
                 android:layout_width="0dp"/>
-
         <Button
                 android:text="规则"
                 android:textSize="20dp"
@@ -36,5 +36,97 @@
                 android:id="@+id/ruleButton"
                 android:layout_width="0dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/globalConstraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/filterSelector">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/globalcontroller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <Button
+                android:id="@+id/globalView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看">
+            </Button>
+            <Button
+                android:id="@+id/globalAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="添加"
+                app:layout_constraintLeft_toRightOf="@+id/globalView">
+            </Button>
+            <Button
+                android:id="@+id/globalDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="删除"
+                app:layout_constraintLeft_toRightOf="@+id/globalAdd">
+            </Button>
+            <Button
+                android:id="@+id/globalModify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更改"
+                app:layout_constraintLeft_toRightOf="@+id/globalDelete">
+            </Button>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ListView
+            android:id="@+id/globalList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/globalcontroller">
+        </ListView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ruleConstraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/filterSelector">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rulecontroller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <Button
+                android:id="@+id/ruleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看"
+                >
+            </Button>
+            <Button
+                android:id="@+id/ruleAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="添加"
+                app:layout_constraintLeft_toRightOf="@+id/ruleView"
+                >
+            </Button>
+            <Button
+                android:id="@+id/ruleDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/ruleAdd"
+                android:text="删除"
+                >
+            </Button>
+            <Button
+                android:id="@+id/ruleModify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/ruleDelete"
+                android:text="更改">
+            </Button>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ListView
+            android:id="@+id/ruleList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/rulecontroller">
+        </ListView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

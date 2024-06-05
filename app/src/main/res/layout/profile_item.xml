@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/list_item_background">
+
+    <RadioButton
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="是否播放"
+        app:layout_constraintLeft_toRightOf="@+id/whiteList"/>
+    <EditText
+        android:id="@+id/whiteList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入白名单过滤的规则"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/program"
+        />
+    <EditText
+        android:id="@+id/blackList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入黑名单过滤的规则"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/whiteList"
+        />
+    <EditText
+        android:id="@+id/program"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入你要过滤的程序名"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
