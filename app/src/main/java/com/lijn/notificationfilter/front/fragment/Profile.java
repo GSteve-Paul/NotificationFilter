@@ -80,8 +80,6 @@ public class Profile extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        showHideLayout();
-
     }
 
     @Override
@@ -91,25 +89,6 @@ public class Profile extends Fragment {
         rulefilterdatalist = new ArrayList<>();
         globalfilterdatalist = new ArrayList<>();
 
-        globalButton = view.findViewById(R.id.globalButton);
-        ruleButton = view.findViewById(R.id.ruleButton);
-
-        globalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isGlobalSelected = true;
-                isRuleSelected = false;
-                showHideLayout();
-            }
-        });
-        ruleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isRuleSelected = true;
-                isGlobalSelected = false;
-                showHideLayout();
-            }
-        });
 
 //        globalButton.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
@@ -152,6 +131,28 @@ public class Profile extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState)
     {
+        showHideLayout();
+
+        globalButton = view.findViewById(R.id.globalButton);
+        ruleButton = view.findViewById(R.id.ruleButton);
+
+        globalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isGlobalSelected = true;
+                isRuleSelected = false;
+                showHideLayout();
+            }
+        });
+        ruleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isRuleSelected = true;
+                isGlobalSelected = false;
+                showHideLayout();
+            }
+        });
+
         super.onViewCreated(view, savedInstanceState);
 
         ruleListView = view.findViewById(R.id.ruleList);
