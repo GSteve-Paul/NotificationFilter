@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity
 
     private void mytest()
     {
+        /*
         RuleProfileManager ruleProfileManager = RuleProfileManager.getInstance();
         List<FilterData> list = List.of(
                 new FilterData(new Program("com.example.notificationapp"), false, InServiceType.USE_BLACKLIST, List.of("white1", "white2", "white3"), List.of(".*通知.*")),
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity
 
         setting.setFilterVariety(FilterType.RULE, true);
         setting.setFilterVariety(FilterType.GLOBAL, true);
+        */
     }
 
     @Override
