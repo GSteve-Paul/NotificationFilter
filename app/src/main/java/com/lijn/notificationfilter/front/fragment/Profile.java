@@ -119,7 +119,6 @@ public class Profile extends Fragment
             List<Program> existProgram = new ArrayList<>();
             for (FilterData data : adapter.getDataList())
                 existProgram.add(data.getProgram());
-            FilterData addFilterData = new FilterData();
             ProfileAddDialog dialog = new ProfileAddDialog(existProgram, this);
             dialog.show(getFragmentManager(), "ProfileAddDialog");
         });
@@ -127,7 +126,10 @@ public class Profile extends Fragment
         deleteButton.setOnClickListener((v) -> deleteProfile());
 
         editButton.setOnClickListener((v) -> {
-
+            int position = adapter.getSelectedPosition();
+            FilterData editFilterData = adapter.getDataList().get(position);
+            ProfileEditDialog dialog = new ProfileEditDialog(editFilterData, this);
+            dialog.show(getFragmentManager(), "ProfileEditDialog");
         });
 
         ruleButton.setOnClickListener((v) -> {
@@ -199,6 +201,10 @@ public class Profile extends Fragment
     @Override
     public void onDestroyView()
     {
+        if (type == RULE)
+            RuleProfileManager.getInstance().save(adapter.getDataList());
+        else
+            GlobalProfileManager.getInstance().save(adapter.getDataList().get(0));
         super.onDestroyView();
     }
 
