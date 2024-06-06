@@ -4,6 +4,7 @@ import android.util.Log;
 import com.lijn.notificationfilter.back.entity.MyLog;
 import com.lijn.notificationfilter.back.io.logio.LogWriter;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
+import com.lijn.notificationfilter.front.fragment.LogAdapter;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,14 +16,16 @@ public final class LogManager implements ILogManager
     private final static Integer cacheSize = 1000;
     private final static Integer bufferSize = 500;
     private volatile static LogManager mInstance;
-    private final String TAG = "LogManager";
+    private final static String TAG = "LogManager";
     private List<MyLog> logBuffer;
     private List<MyLog> logCache;
+    private LogAdapter adapter;
 
     private LogManager()
     {
         logBuffer = new ArrayList<>();
         logCache = new ArrayList<>();
+        adapter = null;
     }
 
     public static LogManager getInstance()
@@ -38,6 +41,11 @@ public final class LogManager implements ILogManager
             }
         }
         return mInstance;
+    }
+
+    public void setAdapter(LogAdapter adapter)
+    {
+        this.adapter = adapter;
     }
 
     @Override
@@ -56,7 +64,7 @@ public final class LogManager implements ILogManager
     }
 
     @Override
-    public void writeLog(MyLog log) throws IOException
+    public void writeLog(MyLog log)
     {
         Log.i(TAG, "writeLog: " + log.toString());
 
@@ -79,9 +87,13 @@ public final class LogManager implements ILogManager
 
         Log.i(TAG, "start addLogCache: " + logCache.size());
         logCache.add(log);
+        if(adapter != null)
+            adapter.notifyItemInserted(logCache.size() - 1);
         if (logCache.size() > cacheSize)
         {
             logCache.remove(0);
+            if (adapter != null)
+                adapter.notifyItemRemoved(0);
         }
         Log.i(TAG, "finish addLogCache: " + logCache.size());
 

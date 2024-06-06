@@ -18,6 +18,14 @@ public class ProgramSetting
         running = false;
     }
 
+    public ProgramSetting(ProgramSetting setting)
+    {
+        logNotificationVariety = new Variety<>(setting.logNotificationVariety);
+        filterVariety = new Variety<>(setting.filterVariety);
+        autoStartWhenBoot = setting.autoStartWhenBoot;
+        running = setting.running;
+    }
+
     public boolean getLogNotificationVariety(NotificationType notificationType)
     {
         return logNotificationVariety.getVariety(notificationType);

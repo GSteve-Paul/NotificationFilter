@@ -96,13 +96,8 @@ public class Profile extends Fragment
         ruleProfileView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-        ruleButton.setOnClickListener((v) -> {
-            turnRuleProfile();
-        });
-
-        globalButton.setOnClickListener((v) -> {
-            turnGlobalProfile();
-        });
+        ruleButton.setOnClickListener((v) -> turnRuleProfile());
+        globalButton.setOnClickListener((v) -> turnGlobalProfile());
 
 
     }

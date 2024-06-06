@@ -87,6 +87,8 @@ public class FilterHistory extends Fragment
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         List<MyLog> cache = LogManager.getInstance().getLogCache();
         adapter = new LogAdapter(cache);
+
+        LogManager.getInstance().setAdapter(adapter);
         recyclerView.setAdapter(adapter);
     }
 

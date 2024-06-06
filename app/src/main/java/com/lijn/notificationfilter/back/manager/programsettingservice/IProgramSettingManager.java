@@ -8,5 +8,7 @@ public sealed interface IProgramSettingManager permits ProgramSettingManager
 {
     ProgramSetting getProgramSetting();
 
+    void setProgramSetting(ProgramSetting programSetting);
+
     void flushProgramSetting() throws IOException;
 }

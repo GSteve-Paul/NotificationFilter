@@ -87,44 +87,45 @@ public class FilterMain extends Fragment
     {
         // 为每个Switch设置监听器，以便在状态改变时更新设置
         logInterceptedNotificationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ProgramSettingManager.getInstance().getProgramSetting().setLogNotificationVariety(NotificationType.INTERCEPTED, isChecked);
-            ProgramSettingManager.getInstance().flushProgramSetting();
-            // 更新设置
+            ProgramSetting programSetting = ProgramSettingManager.getInstance().getProgramSetting();
+            programSetting.setLogNotificationVariety(NotificationType.INTERCEPTED, isChecked);
+            ProgramSettingManager.getInstance().setProgramSetting(programSetting);
         });
 
         logPassedNotificationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ProgramSettingManager.getInstance().getProgramSetting().setLogNotificationVariety(NotificationType.PASSED, isChecked);
-            ProgramSettingManager.getInstance().flushProgramSetting();
-            // 更新设置
+            ProgramSetting programSetting = ProgramSettingManager.getInstance().getProgramSetting();
+            programSetting.setLogNotificationVariety(NotificationType.PASSED, isChecked);
+            ProgramSettingManager.getInstance().setProgramSetting(programSetting);
         });
 
         logUnknownPassedNotificationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ProgramSettingManager.getInstance().getProgramSetting().setLogNotificationVariety(NotificationType.UNCHECKED, isChecked);
-            ProgramSettingManager.getInstance().flushProgramSetting();
-            // 更新设置
+            ProgramSetting programSetting = ProgramSettingManager.getInstance().getProgramSetting();
+            programSetting.setLogNotificationVariety(NotificationType.UNCHECKED, isChecked);
+            ProgramSettingManager.getInstance().setProgramSetting(programSetting);
         });
 
         filterRulesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ProgramSettingManager.getInstance().getProgramSetting().setFilterVariety(FilterType.RULE, isChecked);
-            ProgramSettingManager.getInstance().flushProgramSetting();
+            ProgramSetting programSetting = ProgramSettingManager.getInstance().getProgramSetting();
+            programSetting.setFilterVariety(FilterType.RULE, isChecked);
+            ProgramSettingManager.getInstance().setProgramSetting(programSetting);
         });
 
         filterGlobalSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ProgramSettingManager.getInstance().getProgramSetting().setFilterVariety(FilterType.GLOBAL, isChecked);
-            ProgramSettingManager.getInstance().flushProgramSetting();
-            // 更新设置
+            ProgramSetting programSetting = ProgramSettingManager.getInstance().getProgramSetting();
+            programSetting.setFilterVariety(FilterType.GLOBAL, isChecked);
+            ProgramSettingManager.getInstance().setProgramSetting(programSetting);
         });
 
         switchSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ProgramSettingManager.getInstance().getProgramSetting().setRunning(isChecked);
-            ProgramSettingManager.getInstance().flushProgramSetting();
-            // 更新设置
+            ProgramSetting programSetting = ProgramSettingManager.getInstance().getProgramSetting();
+            programSetting.setRunning(isChecked);
+            ProgramSettingManager.getInstance().setProgramSetting(programSetting);
         });
 
         startAutomaticSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ProgramSettingManager.getInstance().getProgramSetting().setAutoStartWhenBoot(isChecked);
-            ProgramSettingManager.getInstance().flushProgramSetting();
-            // 更新设置
+            ProgramSetting programSetting = ProgramSettingManager.getInstance().getProgramSetting();
+            programSetting.setAutoStartWhenBoot(isChecked);
+            ProgramSettingManager.getInstance().setProgramSetting(programSetting);
         });
     }
 

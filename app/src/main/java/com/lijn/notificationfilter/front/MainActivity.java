@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -32,6 +33,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
+    private static final String TAG = "MainActivity";
     Intent notificationIntent = null;
 
     private boolean isEnabled()
@@ -115,12 +117,12 @@ public class MainActivity extends AppCompatActivity
 
         setting.setFilterVariety(FilterType.RULE, true);
         setting.setFilterVariety(FilterType.GLOBAL, true);
-        manager.flushProgramSetting();
     }
 
     @Override
     protected void onDestroy()
     {
+        Log.i(TAG, "onDestroy: ");
         stopService(notificationIntent);
         NotificationListener.requestUnbind(new ComponentName(ResourceHolder.getContext(), NotificationListener.class));
         LogManager.getInstance().flush();

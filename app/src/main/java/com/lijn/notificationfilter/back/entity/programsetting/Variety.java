@@ -8,6 +8,8 @@ public class Variety<T extends Enum>
 
     public Variety() {variety = 0;}
 
+    public Variety(Variety<T> variety) {this.variety = variety.variety;}
+
     public void setVariety(T t)
     {
         variety = variety | (1 << t.ordinal());

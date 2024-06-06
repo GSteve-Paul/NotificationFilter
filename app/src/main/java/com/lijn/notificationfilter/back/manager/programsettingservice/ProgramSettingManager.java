@@ -44,7 +44,13 @@ public final class ProgramSettingManager implements IProgramSettingManager
     @Override
     public ProgramSetting getProgramSetting()
     {
-        return programSetting;
+        return new ProgramSetting(programSetting);
+    }
+
+    @Override
+    public void setProgramSetting(ProgramSetting programSetting)
+    {
+        this.programSetting = programSetting;
     }
 
     @Override
