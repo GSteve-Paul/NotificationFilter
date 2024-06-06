@@ -127,6 +127,7 @@ public class Profile extends Fragment
 
         editButton.setOnClickListener((v) -> {
             int position = adapter.getSelectedPosition();
+            if (position == -1) return;
             FilterData editFilterData = adapter.getDataList().get(position);
             ProfileEditDialog dialog = new ProfileEditDialog(editFilterData, this);
             dialog.show(getFragmentManager(), "ProfileEditDialog");
@@ -185,7 +186,9 @@ public class Profile extends Fragment
             if (filterDataList != null)
                 RuleProfileManager.getInstance().save(filterDataList);
             //change the content of the recyclerview
-            adapter.setDataList(List.of(GlobalProfileManager.getInstance().read()));
+            ArrayList<FilterData> filterDataArrayList = new ArrayList<>();
+            filterDataArrayList.add(GlobalProfileManager.getInstance().read());
+            adapter.setDataList(filterDataArrayList);
         });
 
         ruleButton.performClick();
