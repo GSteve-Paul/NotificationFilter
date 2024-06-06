@@ -7,7 +7,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
                 android:orientation="vertical"
-                android:background="@drawable/list_item_background">
+                android:background="@drawable/log_list_item_background">
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -14,7 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.lijn.notificationfilter.R;
+import com.lijn.notificationfilter.back.entity.FilterData;
+import com.lijn.notificationfilter.back.entity.Program;
+import com.lijn.notificationfilter.back.manager.profileservice.GlobalProfileManager;
+import com.lijn.notificationfilter.back.manager.profileservice.RuleProfileManager;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,15 +35,20 @@ public class Profile extends Fragment
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int RULE = 1;
+    private static final int GLOBAL = 2;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Button ruleButton;
-    Button globalButton;
-    Button deleteButton;
-    Button editButton;
-    Button addButton;
-    RecyclerView ruleProfileView;
+    private int type;
+    private Button ruleButton;
+    private Button globalButton;
+    private Button deleteButton;
+    private Button editButton;
+    private Button addButton;
+    private RecyclerView profileView;
+    private ProfileAdapter adapter;
+
 
     public Profile()
     {
@@ -92,14 +104,89 @@ public class Profile extends Fragment
         editButton = view.findViewById(R.id.editProfileButton);
         addButton = view.findViewById(R.id.addProfileButton);
 
-        ruleProfileView = view.findViewById(R.id.ruleProfileView);
-        ruleProfileView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        profileView = view.findViewById(R.id.profileView);
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        profileView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new ProfileAdapter(null);
+        profileView.setAdapter(adapter);
 
-        ruleButton.setOnClickListener((v) -> turnRuleProfile());
-        globalButton.setOnClickListener((v) -> turnGlobalProfile());
+        addButton.setOnClickListener((v) -> {
+            List<Program> existProgram = new ArrayList<>();
+            for (FilterData data : adapter.getDataList())
+                existProgram.add(data.getProgram());
+            FilterData addFilterData = new FilterData();
+            ProfileAddDialog dialog = new ProfileAddDialog(existProgram, this);
+            dialog.show(getFragmentManager(), "ProfileAddDialog");
+        });
 
+        deleteButton.setOnClickListener((v) -> deleteProfile());
 
+        editButton.setOnClickListener((v) -> {
+
+        });
+
+        ruleButton.setOnClickListener((v) -> {
+            type = RULE;
+            //change the add/delete access
+            addButton.setEnabled(true);
+            deleteButton.setEnabled(true);
+            //change the style of rule/global button
+            Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+            globalButton.setTypeface(boldTypeface);
+
+            Typeface simpleTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
+            ruleButton.setTypeface(simpleTypeface);
+
+            GradientDrawable colorDrawable = new GradientDrawable();
+            colorDrawable.setColor(0xFFDBF6ED);
+            globalButton.setBackground(colorDrawable);
+
+            GradientDrawable transparentDrawable = new GradientDrawable();
+            transparentDrawable.setColor(0x00000000);
+            ruleButton.setBackground(transparentDrawable);
+
+            //save the content before
+            List<FilterData> filterDataList = adapter.getDataList();
+            if (filterDataList != null)
+                GlobalProfileManager.getInstance().save(filterDataList.get(0));
+            //change the content of the recyclerview
+            adapter.setDataList(RuleProfileManager.getInstance().read());
+        });
+
+        globalButton.setOnClickListener((v) -> {
+            type = GLOBAL;
+            //change the add/delete access
+            addButton.setEnabled(false);
+            deleteButton.setEnabled(false);
+            //change the style of rule/global button
+            Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+            ruleButton.setTypeface(boldTypeface);
+
+            Typeface simpleTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
+            globalButton.setTypeface(simpleTypeface);
+
+            GradientDrawable colorDrawable = new GradientDrawable();
+            colorDrawable.setColor(0xFFDBF6ED);
+            ruleButton.setBackground(colorDrawable);
+
+            GradientDrawable transparentDrawable = new GradientDrawable();
+            transparentDrawable.setColor(0x00000000);
+            globalButton.setBackground(transparentDrawable);
+
+            //save
+            List<FilterData> filterDataList = adapter.getDataList();
+            if (filterDataList != null)
+                RuleProfileManager.getInstance().save(filterDataList);
+            //change the content of the recyclerview
+            adapter.setDataList(List.of(GlobalProfileManager.getInstance().read()));
+        });
+
+        ruleButton.performClick();
     }
 
     @Override
@@ -109,37 +196,31 @@ public class Profile extends Fragment
         Log.i(TAG, "onResume: ");
     }
 
-    private void turnGlobalProfile()
+    @Override
+    public void onDestroyView()
     {
-        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
-        globalButton.setTypeface(boldTypeface);
-
-        Typeface simpleTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
-        ruleButton.setTypeface(simpleTypeface);
-
-        GradientDrawable colorDrawable = new GradientDrawable();
-        colorDrawable.setColor(0xFFDBF6ED);
-        globalButton.setBackground(colorDrawable);
-
-        GradientDrawable transparentDrawable = new GradientDrawable();
-        transparentDrawable.setColor(0x00000000);
-        ruleButton.setBackground(transparentDrawable);
+        super.onDestroyView();
     }
 
-    private void turnRuleProfile()
+    public void addProfile(FilterData data)
     {
-        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
-        ruleButton.setTypeface(boldTypeface);
+        adapter.getDataList().add(data);
+        adapter.notifyItemInserted(adapter.getDataList().size() - 1);
+    }
 
-        Typeface simpleTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
-        globalButton.setTypeface(simpleTypeface);
+    public void deleteProfile()
+    {
+        int position = adapter.getSelectedPosition();
+        if(position == -1) return;
+        adapter.getDataList().remove(position);
+        adapter.notifyItemRemoved(position);
+    }
 
-        GradientDrawable colorDrawable = new GradientDrawable();
-        colorDrawable.setColor(0xFFDBF6ED);
-        ruleButton.setBackground(colorDrawable);
-
-        GradientDrawable transparentDrawable = new GradientDrawable();
-        transparentDrawable.setColor(0x00000000);
-        globalButton.setBackground(transparentDrawable);
+    public void editProfile(FilterData data)
+    {
+        int position = adapter.getSelectedPosition();
+        if(position == -1) return;
+        adapter.getDataList().set(position, data);
+        adapter.notifyItemChanged(position);
     }
 }

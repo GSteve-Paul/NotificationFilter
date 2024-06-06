@@ -50,6 +50,9 @@
                 app:layout_constraintRight_toLeftOf="@id/deleteProfileButton"
                 app:layout_constraintWidth_percent="0.25"
                 android:text="增加"
+                android:textSize="20sp"
+                android:backgroundTint="#97F490"
+                android:textColor="#1C8803"
                 android:id="@+id/addProfileButton"/>
         <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,6 +62,9 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintWidth_percent="0.5"
                 android:text="删除"
+                android:textSize="20sp"
+                android:backgroundTint="#F89393"
+                android:textColor="#F82323"
                 android:id="@+id/deleteProfileButton"/>
         <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,6 +74,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.25"
                 android:text="修改"
+                android:textSize="20sp"
+                android:backgroundTint="#F6E5A9"
+                android:textColor="#F87F23"
                 android:id="@+id/editProfileButton"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,6 +84,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="?attr/actionBarSize"
-            android:id="@+id/ruleProfileView"/>
+            android:id="@+id/profileView"/>
 
 </LinearLayout>

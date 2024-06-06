@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity_layout);
+        setContentView(R.layout.main_activity);
 
         //Navigation
         NavController navController = Navigation.findNavController
@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity
     {
         RuleProfileManager ruleProfileManager = RuleProfileManager.getInstance();
         List<FilterData> list = List.of(
-                new FilterData(new Program("com.example.notificationapp"), false, InServiceType.USE_BLACKLIST, List.of("white1", "white2", "white3"), List.of(".*通知.*")));
+                new FilterData(new Program("com.example.notificationapp"), false, InServiceType.USE_BLACKLIST, List.of("white1", "white2", "white3"), List.of(".*通知.*")),
+                new FilterData(new Program("fucker"),false, InServiceType.USE_WHITELIST,List.of("baise"),List.of("heise")));
         ruleProfileManager.save(list);
 
         ProgramSettingManager manager = ProgramSettingManager.getInstance();

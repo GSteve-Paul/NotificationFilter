@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@drawable/log_list_item_background"
+              android:layout_marginVertical="5sp"
+              android:layout_marginHorizontal="8sp">
+     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+         <TextView android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:text="软件包名"
+                   android:textSize="20sp"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintLeft_toLeftOf="parent"
+                   android:id="@+id/programPackageNameLabel"/>
+         <Spinner android:layout_width="0sp"
+                  android:layout_height="match_parent"
+                  app:layout_constraintLeft_toRightOf="@id/programPackageNameLabel"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  android:id="@+id/programPackageNameSpinner"/>
+     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5sp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintWidth_percent="0.35"
+                android:id="@+id/displayView">
+
+            <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="播放"
+                    android:textSize="20sp"
+                    android:textColor="#7A7A7A"
+                    android:id="@+id/displaySwitch"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/displayView">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      app:layout_constraintWidth_percent="0.5"
+                      android:textSize="20sp"
+                      android:id="@+id/enabledTypeLabel"
+                      android:text="状态"/>
+
+            <Spinner android:layout_width="0sp"
+                     android:layout_height="match_parent"
+                     app:layout_constraintLeft_toRightOf="@id/enabledTypeLabel"
+                     app:layout_constraintRight_toRightOf="parent"
+                     app:layout_constraintTop_toTopOf="parent"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     android:id="@+id/stateSpinner"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5sp">
+        <TextView android:layout_width="0sp"
+                  android:layout_height="match_parent"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:textSize="20sp"
+                  android:text="白名单"
+                  android:id="@+id/whiteListLabel"/>
+
+        <EditText android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  app:layout_constraintTop_toBottomOf="@id/whiteListLabel"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  android:singleLine="false"
+                  android:inputType="textMultiLine"
+                  android:textSize="20sp"
+                  android:minLines="1"
+                  android:id="@+id/whiteListText"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5sp">
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:textSize="20sp"
+                  android:text="黑名单"
+                  android:id="@+id/blackListLabel"/>
+
+        <EditText android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  app:layout_constraintTop_toBottomOf="@id/blackListLabel"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  android:singleLine="false"
+                  android:inputType="textMultiLine"
+                  android:textSize="20sp"
+                  android:minLines="1"
+                  android:id="@+id/blackListText"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5sp">
+
+        <Button android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/okButton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="取消"
+                android:textSize="20sp"
+                android:id="@+id/cancelButton"/>
+
+        <Button android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/cancelButton"
+                android:text="确定"
+                android:textSize="20sp"
+                android:id="@+id/okButton"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

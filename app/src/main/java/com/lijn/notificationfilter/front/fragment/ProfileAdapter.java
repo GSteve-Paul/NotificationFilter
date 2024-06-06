@@ -1,52 +1,83 @@
 package com.lijn.notificationfilter.front.fragment;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 import com.lijn.notificationfilter.R;
 import com.lijn.notificationfilter.back.entity.FilterData;
 import com.lijn.notificationfilter.back.util.ResourceHolder;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RuleProfileAdapter extends RecyclerView.Adapter<RuleProfileAdapter.RuleProfileViewHolder>
+public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>
 {
     private List<FilterData> dataList;
-    private int selectedPosition = -1;
+    private int selectedPosition;
 
-    public RuleProfileAdapter() {}
+    public ProfileAdapter()
+    {
+        dataList = new ArrayList<>();
+        selectedPosition = -1;
+    }
 
-    public RuleProfileAdapter(List<FilterData> dataList)
+    public ProfileAdapter(List<FilterData> dataList)
     {
         this.dataList = dataList;
+        selectedPosition = -1;
+    }
+
+    public int getSelectedPosition()
+    {
+        return selectedPosition;
+    }
+
+    public void setDataList(List<FilterData> dataList) {
+        this.dataList = dataList;
+        notifyDataSetChanged();
+        selectedPosition = -1;
+    }
+
+    public List<FilterData> getDataList()
+    {
+        return dataList;
     }
 
     @NonNull
     @NotNull
     @Override
-    public RuleProfileViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType)
+    public ProfileViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.profile_list_item, parent, false);
-        return new RuleProfileViewHolder(view);
+        return new ProfileViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull RuleProfileViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull @NotNull ProfileViewHolder holder, int position)
     {
         FilterData data = dataList.get(position);
         holder.bind(data);
         if (selectedPosition == holder.getAdapterPosition())
-            holder.itemView.setBackgroundColor(Color.toArgb(0x33ff66));
+        {
+            Drawable background = AppCompatResources.getDrawable(ResourceHolder.getContext(),R.drawable.checked_profile_list_item_background);
+            holder.itemView.setBackground(background);
+        }
         else
-            holder.itemView.setBackgroundColor(Color.toArgb(0x33ffff));
+        {
+            Drawable background = AppCompatResources.getDrawable(ResourceHolder.getContext(), R.drawable.unchecked_profile_list_item_background);
+            holder.itemView.setBackground(background);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             int previousSelectedPosition = selectedPosition;
@@ -62,7 +93,9 @@ public class RuleProfileAdapter extends RecyclerView.Adapter<RuleProfileAdapter.
         return dataList.size();
     }
 
-    public static class RuleProfileViewHolder extends RecyclerView.ViewHolder
+
+
+    public static class ProfileViewHolder extends RecyclerView.ViewHolder
     {
         TextView programPackageNameText;
         TextView isDisplayText;
@@ -70,7 +103,7 @@ public class RuleProfileAdapter extends RecyclerView.Adapter<RuleProfileAdapter.
         Spinner whiteListSpinner;
         Spinner blackListSpinner;
 
-        public RuleProfileViewHolder(@NonNull @NotNull View itemView)
+        public ProfileViewHolder(@NonNull @NotNull View itemView)
         {
             super(itemView);
             programPackageNameText = itemView.findViewById(R.id.programPackageNameText);

@@ -40,4 +40,10 @@ public class Program
     {
         return Objects.hash(packageName);
     }
+
+    @Override
+    public String toString()
+    {
+        return packageName;
+    }
 }
