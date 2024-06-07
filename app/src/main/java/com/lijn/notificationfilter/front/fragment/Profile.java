@@ -202,13 +202,13 @@ public class Profile extends Fragment
     }
 
     @Override
-    public void onDestroyView()
+    public void onStop()
     {
         if (type == RULE)
             RuleProfileManager.getInstance().save(adapter.getDataList());
         else
             GlobalProfileManager.getInstance().save(adapter.getDataList().get(0));
-        super.onDestroyView();
+        super.onStop();
     }
 
     public void addProfile(FilterData data)
@@ -220,7 +220,7 @@ public class Profile extends Fragment
     public void deleteProfile()
     {
         int position = adapter.getSelectedPosition();
-        if(position == -1) return;
+        if (position == -1) return;
         adapter.getDataList().remove(position);
         adapter.notifyItemRemoved(position);
     }
@@ -228,7 +228,7 @@ public class Profile extends Fragment
     public void editProfile(FilterData data)
     {
         int position = adapter.getSelectedPosition();
-        if(position == -1) return;
+        if (position == -1) return;
         adapter.getDataList().set(position, data);
         adapter.notifyItemChanged(position);
     }

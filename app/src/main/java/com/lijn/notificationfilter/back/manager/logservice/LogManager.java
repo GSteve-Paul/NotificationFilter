@@ -6,7 +6,6 @@ import com.lijn.notificationfilter.back.io.logio.LogWriter;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 import com.lijn.notificationfilter.front.fragment.LogAdapter;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,8 @@ public final class LogManager implements ILogManager
 {
     private final static Integer cacheSize = 1000;
     private final static Integer bufferSize = 500;
-    private volatile static LogManager mInstance;
     private final static String TAG = "LogManager";
+    private volatile static LogManager mInstance;
     private List<MyLog> logBuffer;
     private List<MyLog> logCache;
     private LogAdapter adapter;
@@ -87,7 +86,7 @@ public final class LogManager implements ILogManager
 
         Log.i(TAG, "start addLogCache: " + logCache.size());
         logCache.add(log);
-        if(adapter != null)
+        if (adapter != null)
             adapter.notifyItemInserted(logCache.size() - 1);
         if (logCache.size() > cacheSize)
         {

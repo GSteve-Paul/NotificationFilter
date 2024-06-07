@@ -1,11 +1,9 @@
 package com.lijn.notificationfilter.front.fragment;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,15 +40,16 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         return selectedPosition;
     }
 
-    public void setDataList(List<FilterData> dataList) {
-        this.dataList = dataList;
-        notifyDataSetChanged();
-        selectedPosition = -1;
-    }
-
     public List<FilterData> getDataList()
     {
         return dataList;
+    }
+
+    public void setDataList(List<FilterData> dataList)
+    {
+        this.dataList = dataList;
+        notifyDataSetChanged();
+        selectedPosition = -1;
     }
 
     @NonNull
@@ -70,7 +69,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         holder.bind(data);
         if (selectedPosition == holder.getAdapterPosition())
         {
-            Drawable background = AppCompatResources.getDrawable(ResourceHolder.getContext(),R.drawable.checked_profile_list_item_background);
+            Drawable background = AppCompatResources.getDrawable(ResourceHolder.getContext(), R.drawable.checked_profile_list_item_background);
             holder.itemView.setBackground(background);
         }
         else
@@ -92,7 +91,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     {
         return dataList.size();
     }
-
 
 
     public static class ProfileViewHolder extends RecyclerView.ViewHolder

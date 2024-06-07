@@ -23,7 +23,6 @@ import com.lijn.notificationfilter.back.util.ResourceHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -41,7 +40,7 @@ public class ProfileAddDialog extends DialogFragment
     private Button okButton = null;
     private Button cancelButton = null;
 
-    public ProfileAddDialog() { super();}
+    public ProfileAddDialog() {super();}
 
     public ProfileAddDialog(List<Program> listProgram, Profile caller)
     {

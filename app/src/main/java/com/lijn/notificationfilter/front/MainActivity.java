@@ -17,19 +17,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lijn.notificationfilter.R;
-import com.lijn.notificationfilter.back.entity.FilterData;
-import com.lijn.notificationfilter.back.entity.InServiceType;
-import com.lijn.notificationfilter.back.entity.Program;
-import com.lijn.notificationfilter.back.entity.programsetting.FilterType;
-import com.lijn.notificationfilter.back.entity.programsetting.NotificationType;
-import com.lijn.notificationfilter.back.entity.programsetting.ProgramSetting;
 import com.lijn.notificationfilter.back.manager.logservice.LogManager;
-import com.lijn.notificationfilter.back.manager.profileservice.RuleProfileManager;
 import com.lijn.notificationfilter.back.manager.programsettingservice.ProgramSettingManager;
 import com.lijn.notificationfilter.back.service.NotificationListener;
 import com.lijn.notificationfilter.back.util.ResourceHolder;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {

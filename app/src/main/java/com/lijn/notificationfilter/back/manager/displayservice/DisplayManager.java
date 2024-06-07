@@ -1,7 +1,6 @@
 package com.lijn.notificationfilter.back.manager.displayservice;
 
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import com.lijn.notificationfilter.back.util.ResourceHolder;
 
 import java.util.Locale;
@@ -41,7 +40,7 @@ public final class DisplayManager implements IDisplayManager, TextToSpeech.OnIni
     @Override
     public void doDisplay(String str)
     {
-        tts.speak(str, TextToSpeech.QUEUE_FLUSH, null,null);
+        tts.speak(str, TextToSpeech.QUEUE_FLUSH, null, null);
     }
 
     @Override
