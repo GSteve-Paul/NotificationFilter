@@ -42,10 +42,11 @@
 
         <!-- 保留原有的BroadcastReceiver配置 -->
         <receiver android:name=".back.receiver.BootReceiver"
-                  android:exported="true">
-            <intent-filter>
+                  android:exported="true"
+                  android:enabled="true">
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </receiver>
 

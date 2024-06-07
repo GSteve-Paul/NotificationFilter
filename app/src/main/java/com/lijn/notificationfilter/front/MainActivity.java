@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
             startActivity(intent);
         }
+
+        //NotificationListenerService
         notificationIntent = new Intent(this, NotificationListener.class);
         NotificationListener.requestRebind(new ComponentName(ResourceHolder.getContext(), NotificationListener.class));
         startService(notificationIntent);

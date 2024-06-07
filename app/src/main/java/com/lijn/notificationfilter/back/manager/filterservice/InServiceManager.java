@@ -179,7 +179,6 @@ public class InServiceManager
 
     public NotificationType doFilterProxy(Program program, Notification notification) throws IOException
     {
-
         NotificationType result = doFilter(program, notification);
 
         if (ProgramSettingManager.getInstance().getProgramSetting()
