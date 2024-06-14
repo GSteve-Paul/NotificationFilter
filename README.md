@@ -74,7 +74,5 @@
 - 模块化设计，包括前台界面、后台服务、数据管理、日志管理等。
 
 ## 软件架构图 🏗️
-
-
-
+![Architecture_Diagram_of_NotificationFilter](\assets_Markdown\Architecture_Diagram_of_NotificationFilter.jpg)
 
